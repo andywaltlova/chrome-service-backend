@@ -598,6 +598,18 @@
       ]
     },
     {
+      "id": "upgrades",
+      "appId": "upgrades",
+      "title": "Upgrades",
+      "href": "/insights/upgrades",
+      "product": "Red Hat Insights",
+      "description": "Perform preupgrade analysis and in-place upgrade on registered systems.",
+      "alt_title": [
+        "upgrades",
+        "leapp"
+      ]
+    },
+    {
       "id": "registerSystems",
       "appId": "registration",
       "title": "Register Systems",

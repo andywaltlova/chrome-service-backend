@@ -728,6 +728,20 @@
             }
         ]
     },
+    "upgrades": {
+        "manifestLocation": "/apps/upgrades/fed-mods.json",
+        "modules": [
+            {
+                "id": "upgrades",
+                "module": "./RootApp",
+                "routes": [
+                    {
+                        "pathname": "/insights/upgrades"
+                    }
+                ]
+            }
+        ]
+    },
     "edge": {
         "manifestLocation": "/apps/edge/fed-mods.json",
         "modules": [

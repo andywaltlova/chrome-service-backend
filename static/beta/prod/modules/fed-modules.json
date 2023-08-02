@@ -715,6 +715,20 @@
             }
         ]
     },
+    "upgrades": {
+        "manifestLocation": "/apps/upgrades/fed-mods.json",
+        "modules": [
+            {
+                "id": "upgrades",
+                "module": "./RootApp",
+                "routes": [
+                    {
+                        "pathname": "/insights/upgrades"
+                    }
+                ]
+            }
+        ]
+    },
     "malware": {
         "manifestLocation": "/apps/malware/fed-mods.json",
         "modules": [
