@@ -16,10 +16,14 @@ import (
 )
 
 type SearchEnv string
+type Release string
 
 const (
 	Prod          SearchEnv = "prod"
 	Stage         SearchEnv = "stage"
+	Itless        SearchEnv = "itless"
+	Stable        Release   = "stable"
+	Beta          Release   = "beta"
 	ssoPathname   string    = "/auth/realms/redhat-external/protocol/openid-connect/token"
 	hydraPathname string    = "/hydra/rest/search/console/index"
 )
@@ -40,26 +44,28 @@ type TokenResponse struct {
 }
 
 type ModuleIndexEntry struct {
-	Icon            string   `json:"icon,omitempty"`
-	Title           []string `json:"title"`
-	Bundle          []string `json:"bundle"`
-	BundleTitle     []string `json:"bundleTitle"`
-	AltTitle        []string `json:"alt_title,omitempty"`
-	Id              string   `json:"id"`
-	Uri             string   `json:"uri"`
-	SolrCommand     string   `json:"solrCommand"`
-	ContentType     string   `json:"contentType"`
-	ViewUri         string   `json:"view_uri"`
-	RelativeUri     string   `json:"relative_uri"`
-	PocDescriptionT string   `json:"poc_description_t"`
+	Icon            string        `json:"icon,omitempty"`
+	Title           []string      `json:"title"`
+	Bundle          []string      `json:"bundle"`
+	BundleTitle     []string      `json:"bundleTitle"`
+	AltTitle        []string      `json:"alt_title,omitempty"`
+	Id              string        `json:"id"`
+	Uri             string        `json:"uri"`
+	SolrCommand     string        `json:"solrCommand"`
+	ContentType     string        `json:"contentType"`
+	ViewUri         string        `json:"view_uri"`
+	RelativeUri     string        `json:"relative_uri"`
+	PocDescriptionT string        `json:"poc_description_t"`
+	Permissions     []interface{} `json:"permissions,omitempty"`
 }
 
 type LinkEntry struct {
-	Id          string   `json:"id"`
-	Title       string   `json:"title"`
-	Href        string   `json:"href"`
-	Description string   `json:"description"`
-	AltTitle    []string `json:"alt_title,omitempty"`
+	Id          string        `json:"id"`
+	Title       string        `json:"title"`
+	Href        string        `json:"href"`
+	Description string        `json:"description"`
+	AltTitle    []string      `json:"alt_title,omitempty"`
+	Permissions []interface{} `json:"permissions,omitempty"`
 }
 
 func findFirstValidChildLink(routes []interface{}) LinkEntry {
@@ -87,7 +93,7 @@ func findFirstValidChildLink(routes []interface{}) LinkEntry {
 func convertAltTitles(jsonEntry interface{}) []string {
 	altTitlesInterface, ok := jsonEntry.([]interface{})
 	if !ok {
-		fmt.Println("Cannot convert all title to array")
+		// Cannot convert all title to array. Is probably empty.
 		return []string{}
 	}
 	var altTitles []string
@@ -108,15 +114,32 @@ func parseLinkEntry(item map[string]interface{}) (LinkEntry, bool) {
 		return LinkEntry{}, false
 	}
 
+	if item["expandable"] == true {
+		childLink := findFirstValidChildLink(item["routes"].([]interface{}))
+		item["href"] = childLink.Href
+	}
+
 	href, hrefOk := item["href"].(string)
 	if !hrefOk || len(href) == 0 {
 		return LinkEntry{}, false
 	}
 
+	var permissions []interface{}
+	permissions = nil
+	if item["permissions"] != nil {
+		p, permissionsOk := item["permissions"].([]interface{})
+		if !permissionsOk {
+			fmt.Println("[Error]: permissions are not an array in link: ", id)
+			return LinkEntry{}, false
+		}
+		permissions = p
+	}
+
 	return LinkEntry{
-		Id:    id,
-		Title: title,
-		Href:  href,
+		Id:          id,
+		Title:       title,
+		Href:        href,
+		Permissions: permissions,
 	}, true
 }
 
@@ -172,7 +195,7 @@ func flattenLinks(data interface{}, locator string) ([]LinkEntry, error) {
 				// all of these are required and type assertion can't fail
 				link, linkOk := parseLinkEntry(i)
 				if !linkOk {
-					err := fmt.Errorf("[ERROR] parsing link for href entry at %s", locator)
+					err := fmt.Errorf("[ERROR] Expandable: parsing link for href entry at %s", locator)
 					return []LinkEntry{}, err
 				}
 
@@ -228,10 +251,10 @@ func flattenLinks(data interface{}, locator string) ([]LinkEntry, error) {
 }
 
 type groupLinkTemplate struct {
-	Id      string   `json:"id"`
-	IsGroup bool     `json:"isGroup"`
-	Title   string   `json:"title"`
-	Links   []string `json:"links"`
+	Id      string        `json:"id"`
+	IsGroup bool          `json:"isGroup"`
+	Title   string        `json:"title"`
+	Links   []interface{} `json:"links"`
 }
 
 type servicesTemplate struct {
@@ -300,9 +323,40 @@ func injectLinks(templateData []byte, flatLinks []LinkEntry) ([]ServiceEntry, er
 				if err == nil {
 					if ok {
 						for _, stringLink := range group.Links {
-							entry, found := findLinkById(stringLink, flatLinks)
+							var castLink string
+							castLink, ok = stringLink.(string)
+							var found bool
+							var entry ServiceLink
+							if ok {
+								entry, found = findLinkById(castLink, flatLinks)
+							}
+							/**
+							* Else branch is now handled because the link is "artificial" and does not exist in navigation.
+							* If a link is not in the navigation, it is not from the link registry ad has to be added manually.
+							 */
 							if found {
 								finalLinks = append(finalLinks, entry)
+							} else if !found && !ok {
+								linkMap, ok := stringLink.(map[string]interface{})
+								if !ok {
+									continue
+								}
+
+								artificialLink := ServiceLink{
+									LinkEntry: LinkEntry{
+										Title: linkMap["title"].(string),
+										Href:  linkMap["href"].(string),
+									},
+								}
+
+								description, ok := linkMap["description"].(string)
+								artificialLink.AltTitle = convertAltTitles(linkMap["alt_title"])
+
+								if ok {
+									artificialLink.Description = description
+								}
+								finalLinks = append(finalLinks, artificialLink)
+
 							}
 						}
 					}
@@ -329,15 +383,16 @@ func injectLinks(templateData []byte, flatLinks []LinkEntry) ([]ServiceEntry, er
 
 func flattenIndexBase(indexBase []ServiceEntry, env SearchEnv) ([]ModuleIndexEntry, error) {
 	hccOrigins := EnvMap{
-		Prod:  "https://console.redhat.com",
-		Stage: "https://console.stage.redhat.com",
+		Prod:   "https://console.redhat.com",
+		Stage:  "https://console.stage.redhat.com",
+		Itless: "https://console.openshiftusgov.com",
 	}
 	bundleMapping := map[string]string{
-		"application-services": "Application and Data Services",
+		"application-services": "Application Services",
 		"openshift":            "OpenShift",
-		"ansible":              "Ansible Automation Platform",
-		"insights":             "Red Hat Insights",
-		"edge":                 "Edge management",
+		"ansible":              "Ansible",
+		"insights":             "RHEL",
+		"edge":                 "Edge Management",
 		"settings":             "Settings",
 		"landing":              "Home",
 		"allservices":          "Home",
@@ -363,6 +418,7 @@ func flattenIndexBase(indexBase []ServiceEntry, env SearchEnv) ([]ModuleIndexEnt
 				ViewUri:         fmt.Sprintf("%s%s", hccOrigins[env], e.Href),
 				RelativeUri:     e.Href,
 				AltTitle:        e.AltTitle,
+				Permissions:     e.Permissions,
 			}
 			flatLinks = append(flatLinks, newLink)
 		}
@@ -371,21 +427,22 @@ func flattenIndexBase(indexBase []ServiceEntry, env SearchEnv) ([]ModuleIndexEnt
 }
 
 // create search index compatible documents array
-func constructIndex(env SearchEnv) ([]ModuleIndexEntry, error) {
+func constructIndex(env SearchEnv, release Release) ([]ModuleIndexEntry, error) {
 	// get services template file
-	stageContent, err := ioutil.ReadFile(fmt.Sprintf("static/stable/%s/services/services.json", env))
+	stageContent, err := ioutil.ReadFile(fmt.Sprintf("static/%s/%s/services/services.json", release, env))
 	if err != nil {
 		return []ModuleIndexEntry{}, err
 	}
 
 	// get static service template only for search index
+	// TODO: Add releases for static services
 	staticContent, err := ioutil.ReadFile("cmd/search/static-services-entries.json")
 	if err != nil {
 		return []ModuleIndexEntry{}, err
 	}
 
 	// get all environment navigation files paths request to fill in template file
-	stageNavFiles, err := filepath.Glob(fmt.Sprintf("static/stable/%s/navigation/*-navigation.json", env))
+	stageNavFiles, err := filepath.Glob(fmt.Sprintf("static/%s/%s/navigation/*-navigation.json", release, env))
 	if err != nil {
 		return []ModuleIndexEntry{}, err
 	}
@@ -539,7 +596,7 @@ func deployIndex(env SearchEnv, envSecret string, ssoHost string, hydraHost stri
 	if err != nil {
 		return err
 	}
-	index, err := constructIndex(env)
+	index, err := constructIndex(env, "stable")
 	if err != nil {
 		return err
 	}
@@ -550,6 +607,20 @@ func deployIndex(env SearchEnv, envSecret string, ssoHost string, hydraHost stri
 	}
 
 	return nil
+}
+
+func handleErrors(errors []error, dryRun bool) {
+	if len(errors) == 0 {
+		fmt.Println("Search index published successfully")
+	} else {
+		for _, e := range errors {
+			fmt.Println(e)
+		}
+		fmt.Println("Search index publishing failed. See above errors.")
+		if dryRun {
+			os.Exit(1)
+		}
+	}
 }
 
 func main() {
@@ -572,13 +643,60 @@ func main() {
 	}
 
 	dryRun, _ := strconv.ParseBool(os.Getenv("SEARCH_INDEX_DRY_RUN"))
+	writeIndex, _ := strconv.ParseBool(os.Getenv("SEARCH_INDEX_WRITE"))
 
+	fmt.Println("Write index:", writeIndex)
 	errors := []error{}
+
+	if writeIndex {
+		cwd, err := filepath.Abs(".")
+		if err != nil {
+			fmt.Println("Failed to get current working directory")
+			errors = append(errors, err)
+			handleErrors(errors, dryRun)
+			return
+		}
+		writeEnvs := []SearchEnv{Prod, Stage, Itless}
+		writeReleases := []Release{Stable, Beta}
+		for _, env := range writeEnvs {
+			for _, release := range writeReleases {
+				searchIndex, err := constructIndex(env, release)
+				if err != nil {
+					fmt.Println("Failed to construct search index for", env, release)
+					errors = append(errors, err)
+				} else {
+					dirname := fmt.Sprintf("%s/static/%s/%s/search", cwd, release, env)
+					fileName := fmt.Sprintf("%s/search-index.json", dirname)
+					err := os.MkdirAll(dirname, os.ModePerm)
+					if err != nil {
+						fmt.Println("Failed to create directory", dirname)
+						errors = append(errors, err)
+					} else {
+						j, err := json.Marshal(searchIndex)
+						if err != nil {
+							fmt.Println("Failed to marshal search index")
+							errors = append(errors, err)
+						}
+						err = os.WriteFile(fileName, j, 0644)
+						if err != nil {
+							fmt.Println("Failed to write search index to", fileName)
+							errors = append(errors, err)
+						}
+					}
+
+				}
+
+			}
+		}
+		handleErrors(errors, dryRun)
+		return
+	}
+
 	for _, env := range []SearchEnv{Stage, Prod} {
 		var err error
 		if dryRun {
 			fmt.Println("Attempt dry run search index for", env, "environment.")
-			_, err = constructIndex(env)
+			_, err = constructIndex(env, "stable")
 		} else {
 			fmt.Println("Attempt to publish search index for", env, "environment.")
 			err = deployIndex(env, secrets[env], ssoHosts[env], hydraHost[env])
@@ -590,12 +708,5 @@ func main() {
 		}
 	}
 
-	if len(errors) == 0 {
-		fmt.Println("Search index published successfully")
-	} else {
-		fmt.Println("Search index publishing failed. See above errors.")
-		if dryRun {
-			os.Exit(1)
-		}
-	}
+	handleErrors(errors, dryRun)
 }

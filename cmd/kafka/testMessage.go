@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/RedHatInsights/chrome-service-backend/config"
+	"github.com/google/uuid"
 	"github.com/joho/godotenv"
 	kafka "github.com/segmentio/kafka-go"
 )
@@ -22,9 +23,10 @@ func main() {
 	})
 	defer kafkaWriter.Close()
 
-	body := `{
+	id := uuid.New()
+	body := fmt.Sprintf(`{
 		"specversion": "1.0.2",
-		"type": "notifications.drawer",
+		"type": "com.redhat.console.notifications.drawer",
 		"source": "https://whatever.service.com",
 		"id": "test-message",
 		"time": "2023-05-23T11:54:03.879689005+02:00",
@@ -32,12 +34,17 @@ func main() {
 		"data":{
 			"broadcast": false,
 			"organizations": ["11789772"],
+			"usernames": ["insights-qa"],
 			"payload": {
-				"title": "New notification",
-				"description": "Some longer description"
+				"id": "%s",
+				"description": "HOHOH",
+				"title": "string??!!",
+				"created": "2023-05-23T11:54:03.879689005+02:00",
+				"read": false,
+				"source": "string"
 			}
 		}
-	}`
+	}`, id.String())
 
 	msg := kafka.Message{
 		Key:   []byte(fmt.Sprintf("Key-%v", time.Now().Unix())),

@@ -49,6 +49,7 @@ ccx:
         title: Insights Operator Gathering Conditions Service
         versions:
           - v1
+          - v2
       ocp-vulnerability:
         title: Vulnerability
         versions:
@@ -72,23 +73,6 @@ cost-management:
     versions:
       - v1
 
-drift:
-  title: Drift
-  api:
-    subItems:
-      drift:
-        versions:
-          - v1
-        title: Comparison reports
-      system-baseline:
-        versions:
-          - v1
-        title: Baselines
-      historical-system-profiles:
-        versions:
-          - v1
-        title: Historical system profiles
-
 edge:
   title: RHEL for Edge
   api:
@@ -96,8 +80,14 @@ edge:
       - v1
     isBeta: true
 
+export:
+  title: Export Service
+  api:
+    versions:
+      - v1
+
 idmsvc:
-  title: "Directory & Domain Services"
+  title: "Directory and Domain Services"
   api:
     versions:
       - v1
@@ -210,8 +200,6 @@ patch:
   api:
     versions:
       - v3
-      - v2
-      - v1
     isBeta: true
 
 playbook-dispatcher:
@@ -236,7 +224,6 @@ connector:
   title: Red Hat Connector
   api:
     versions:
-      - v1
       - v2
     apiName: config-manager
 
@@ -297,6 +284,12 @@ vulnerability:
 
 app-studio-docs:
   title: App Studio Docs
+  api:
+    versions:
+      - v1
+
+malware-detection:
+  title: Malware Detection
   api:
     versions:
       - v1

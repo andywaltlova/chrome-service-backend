@@ -13,7 +13,11 @@ import (
 	"github.com/RedHatInsights/chrome-service-backend/config"
 	"github.com/RedHatInsights/chrome-service-backend/rest/database"
 	"github.com/RedHatInsights/chrome-service-backend/rest/models"
+	"github.com/RedHatInsights/chrome-service-backend/rest/util"
 	"github.com/sirupsen/logrus"
+
+	"gorm.io/datatypes"
+	"gorm.io/gorm/clause"
 )
 
 type IntercomApp string
@@ -23,13 +27,28 @@ type IntercomPayload struct {
 }
 
 const (
-	OpenShift IntercomApp = "openshift"
-	HacCore   IntercomApp = "hacCore"
+	OpenShift           IntercomApp = "openshift"
+	HacCore             IntercomApp = "hacCore"
+	Acs                 IntercomApp = "acs"
+	Ansible             IntercomApp = "ansible"
+	AnsibleDashboard    IntercomApp = "ansibleDashboard"
+	AutomationHub       IntercomApp = "automationHub"
+	AutomationAnalytics IntercomApp = "automationAnalytics"
+	DBAAS               IntercomApp = "dbaas"
 )
+
+func debugFavoritesIdentity(userId string) {
+	c := config.Get()
+	for _, i := range c.DebugConfig.DebugFavoriteIds {
+		if i == userId {
+			logrus.Warningln("DEBUG_FAVORITES_ACCOUNT_ID", userId)
+		}
+	}
+}
 
 func (ib IntercomApp) IsValidApp() error {
 	switch ib {
-	case OpenShift, HacCore:
+	case OpenShift, HacCore, Ansible, Acs, AnsibleDashboard, AutomationHub, AutomationAnalytics, DBAAS:
 		return nil
 	}
 
@@ -48,16 +67,10 @@ func parseUserBundles(user models.UserIdentity) (map[string]bool, error) {
 
 // Get user data complete with it's related tables.
 func GetUserIdentityData(user models.UserIdentity) (models.UserIdentity, error) {
-	var lastVisitedPages []models.LastVisitedPage
 	var favoritePages []models.FavoritePage
+	err := database.DB.Model(&user).Association("FavoritePages").Find(&favoritePages)
+	debugFavoritesIdentity(user.AccountId)
 
-	err := database.DB.Model(&user).Association("LastVisitedPages").Find(&lastVisitedPages)
-	if err != nil {
-		return user, err
-	}
-	err = database.DB.Model(&user).Association("FavoritePages").Find(&favoritePages)
-
-	user.LastVisitedPages = lastVisitedPages
 	user.FavoritePages = favoritePages
 	return user, err
 }
@@ -92,24 +105,40 @@ func GetVisitedBundles(user models.UserIdentity) (map[string]bool, error) {
 }
 
 // Create the user object and add the row if not already in DB
-func CreateIdentity(userId string) (models.UserIdentity, error) {
+func CreateIdentity(userId string, skipCache bool) (models.UserIdentity, error) {
 	identity := models.UserIdentity{
 		AccountId:        userId,
 		FirstLogin:       true,
 		DayOne:           true,
 		LastLogin:        time.Now(),
-		LastVisitedPages: []models.LastVisitedPage{},
+		LastVisitedPages: datatypes.NewJSONType([]models.VisitedPage{}),
 		FavoritePages:    []models.FavoritePage{},
 		SelfReport:       models.SelfReport{},
 		VisitedBundles:   nil,
+		ActiveWorkspace:  "default",
 	}
 	err := json.Unmarshal([]byte(`{}`), &identity.VisitedBundles)
 	if err != nil {
 		return models.UserIdentity{}, err
 	}
 
-	res := database.DB.Where("account_id = ?", userId).FirstOrCreate(&identity)
+	/**
+	* Because we pass the object from the middleware to the rest of the application,
+	* we don't have to worry about invalidation the cache, as the object is passed by reference
+	* saves a lot DB queries.
+	 */
+	cachedIdentity, ok := util.UsersCache.Get(userId)
+	if !skipCache && ok {
+		return cachedIdentity, nil
+	}
+
+	res := database.DB.Clauses(clause.Locking{Strength: "UPDATE"}).Where("account_id = ?", userId).FirstOrCreate(&identity)
 	err = res.Error
+
+	// set the cache after successful DB operation
+	if err == nil {
+		util.UsersCache.Set(userId, identity)
+	}
 
 	return identity, err
 }
@@ -155,4 +184,25 @@ func GetUserIntercomHash(userId string, namespace IntercomApp) (IntercomPayload,
 	}
 	response.Dev = devKey
 	return response, nil
+}
+
+func UpdateUserPreview(identity *models.UserIdentity, preview bool) error {
+	identity.UIPreview = preview
+	return database.DB.Model(identity).Update("ui_preview", preview).Error
+}
+
+func MarkPreviewSeen(identity *models.UserIdentity) error {
+	return database.DB.Model(identity).Updates(models.UserIdentity{UIPreviewSeen: true}).Error
+}
+
+func UpdateActiveWorkspace(identity *models.UserIdentity, workspace string) error {
+	identity.ActiveWorkspace = workspace
+	err := database.DB.Model(identity).Update("active_workspace", workspace).Error
+
+	// set the cache after successful DB operation
+	if err == nil {
+		util.UsersCache.Set(identity.AccountId, *identity)
+	}
+
+	return err
 }

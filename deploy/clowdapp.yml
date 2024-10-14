@@ -107,6 +107,16 @@ objects:
               secretKeyRef:
                 name: chrome-service-backend
                 key: INTERCOM_OPENSHIFT_DEV
+          - name: INTERCOM_DBAAS
+            valueFrom:
+              secretKeyRef:
+                name: chrome-service-backend
+                key: INTERCOM_DBAAS
+          - name: INTERCOM_DBAAS_DEV
+            valueFrom:
+              secretKeyRef:
+                name: chrome-service-backend
+                key: INTERCOM_DBAAS_DEV
           - name: SEARCH_CLIENT_SECRET_PROD
             valueFrom:
               secretKeyRef:
@@ -117,13 +127,18 @@ objects:
               secretKeyRef:
                 name: chrome-service-backend
                 key: SEARCH_CLIENT_SECRET_STAGE
+          - name: DEBUG_FAVORITES_ACCOUNT_1
+            valueFrom:
+              secretKeyRef:
+                name: chrome-service-backend
+                key: DEBUG_FAVORITES_ACCOUNT_1
           resources:
             limits:
-              cpu: ${CPU_LIMIT}
-              memory: ${MEMORY_LIMIT}
+              cpu: ${CPU_LIMIT_CHROME_SERVICE}
+              memory: ${MEMORY_LIMIT_CHROME_SERVICE}
             requests:
-              cpu: ${CPU_REQUESTS}
-              memory: ${MEMORY_REQUESTS}
+              cpu: ${CPU_REQUEST_CHROME_SERVICE}
+              memory: ${MEMORY_REQUEST_CHROME_SERVICE}
 
   # This is a dummy secret to make ephemeral deploy correctly. It will not roll out to stage or prod
   # Unless we set "secret" in "managedResourceTypes" in the app-interface saas file.
@@ -142,22 +157,25 @@ objects:
       INTERCOM_OPENSHIFT_DEV: dGVzdFZhbHVl
       SEARCH_CLIENT_SECRET_PROD: dGVzdFZhbHVl
       SEARCH_CLIENT_SECRET_STAGE: dGVzdFZhbHVl
+      INTERCOM_DBAAS: dGVzdFZhbHVl
+      INTERCOM_DBAAS_DEV: dGVzdFZhbHVl
+      DEBUG_FAVORITES_ACCOUNT_1: OTk5
     type: Opaque
 
 parameters:
 - name: LOG_LEVEL
-  value: Info
+  value: Warn  # Do not log debug/info messages by default
 - description: Cpu limit of service
-  name: CPU_LIMIT
+  name: CPU_LIMIT_CHROME_SERVICE
   value: 500m
 - description: memory limit of service
-  name: MEMORY_LIMIT
+  name: MEMORY_LIMIT_CHROME_SERVICE
   value: 512Mi
 - description: Cpu requests of service
-  name: CPU_REQUESTS
+  name: CPU_REQUEST_CHROME_SERVICE
   value: 250m
 - description: Memory requests of service
-  name: MEMORY_REQUESTS
+  name: MEMORY_REQUEST_CHROME_SERVICE
   value: 256Mi
 - name: MIN_REPLICAS
   value: '3'
@@ -166,7 +184,7 @@ parameters:
   required: true
 - description: Image name
   name: IMAGE
-  value: quay.io/cloudservices/chrome-service
+  value: quay.io/redhat-services-prod/hcc-platex-services/chrome-service
 - description: ClowdEnv Name
   name: ENV_NAME
   required: true

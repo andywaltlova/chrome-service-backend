@@ -3,11 +3,11 @@
     "title": "Settings",
     "navItems": [
         {
-            "id": "sources",
+            "id": "integrations",
             "appId": "sources",
-            "title": "Sources",
-            "description": "Sources provide a way for applications to collect data outside of the Red Hat Hybrid Cloud Console through either a direct connection to the source or indirectly.",
-            "href": "/settings/sources",
+            "title": "Integrations",
+            "description": "Integrations provide a way for applications to collect data outside of the Red Hat Hybrid Cloud Console through either a direct connection to the source or indirectly.",
+            "href": "/settings/integrations",
             "icon": "PlaceholderIcon",
             "alt_title": [
                 "providers",
@@ -32,156 +32,34 @@
                 "subscriptions",
                 "account",
                 "credentials"
-            ],
-            "permissions": [
-                {
-                    "method": "featureFlag",
-                    "args": ["platform.sources.integrations", true]
-                }
-            ]
-        },
-        {
-            "id": "sources-integrations",
-            "appId": "integrations",
-            "title": "Integrations",
-            "description": "Integrations provide a way for applications to collect data outside of the Red Hat Hybrid Cloud Console through either a direct connection to the source or indirectly.",
-            "href": "/settings/sources",
-            "alt_title": [
-                "providers",
-                "cloud providers",
-                "cloud sources",
-                "Red Hat sources",
-                "integrations",
-                "cloud integrations",
-                "cloud connection",
-                "aws",
-                "Amazon",
-                "Google",
-                "cloud",
-                "IBM",
-                "Microsoft",
-                "secrets",
-                "Azure",
-                "Oracle",
-                "Infrastructure",
-                "prediction",
-                "cost",
-                "subscriptions",
-                "account",
-                "credentials"
-            ],
-            "permissions": [
-                {
-                    "method": "featureFlag",
-                    "args": ["platform.sources.integrations", true]
-                }
             ]
         },
         {
             "id": "learningResources",
             "appId": "learningResources",
             "title": "Learning Resources",
-            "href": "/settings/learning-resources",
-            "permissions": [
-                {
-                    "method": "featureFlag",
-                    "args": ["platform.notifications.overhaul", false]
-                }
-            ]
+            "href": "/settings/learning-resources"
         },
         {
             "id": "idmsvc",
             "appId": "idmsvc",
-            "title": "Directory & Domain Services",
+            "title": "Directory and Domain Services",
             "description": "Directory and Domain Services for console.redhat.com",
             "href": "/settings/idmsvc",
             "icon": "PlaceholderIcon"
         },
         {
-            "id": "integrations",
-            "appId": "notifications",
-            "title": "Integrations",
-            "icon": "PlaceholderIcon",
-            "description": "Route event-triggered notifications to your preferred third-party tools and platforms, such as Splunk and ServiceNow.",
-            "href": "/settings/integrations",
-            "alt_title":[
-                "integrations",
-                "Splunk",
-                "Service Now",
-                "SNOW",
-                "integrate",
-                "webhook",
-                "Slack",
-                "Google Chat",
-                "Microsoft Teams",
-                "third party integration",
-                "event driven",
-                "alerting",
-                "automation",
-                "operational workflow",
-                "google spaces",
-                "ms teams"
-            ],
-            "permissions": [
-                {
-                    "method": "featureFlag",
-                    "args": ["platform.sources.integrations", true]
-                }
-            ]
-        },
-        {
             "title": "Notifications",
+            "id": "notifications",
+            "description": "A standardized way of notifying users of events for supported services on the Hybrid Cloud Console.",
             "expandable": true,
             "routes": [
                 {
-                    "id": "openshift",
-                    "appId": "notifications",
-                    "title": "OpenShift",
-                    "href": "/settings/notifications/openshift",
-                    "permissions": [
-                        {
-                            "method": "featureFlag",
-                            "args": ["platform.notifications.overhaul", false]
-                        }
-                    ]
-                },
-                {
-                    "id": "redhatEntrpriseLinux",
-                    "appId": "notifications",
-                    "title": "Red Hat Enterprise Linux",
-                    "href": "/settings/notifications/rhel",
-                    "permissions": [
-                        {
-                            "method": "featureFlag",
-                            "args": ["platform.notifications.overhaul", false]
-                        }
-                    ]
-                },
-                {
-                    "id": "console",
-                    "appId": "notifications",
-                    "title": "Console",
-                    "icon": "PlaceholderIcon",
-                    "description": "Configure which notifications users within your organization receive.",
-                    "href": "/settings/notifications/console",
-                    "permissions": [
-                        {
-                            "method": "featureFlag",
-                            "args": ["platform.notifications.overhaul", false]
-                        }
-                    ]
-                },
-                {
                     "id": "notificationOverview",
                     "appId": "notifications",
+                    "icon": "PlaceholderIcon",
                     "title": "Overview",
-                    "href": "/settings/notifications",
-                    "permissions": [
-                      {
-                        "method": "featureFlag",
-                        "args": ["platform.notifications.overhaul", true]
-                      }
-                    ]
+                    "href": "/settings/notifications"
                 },
                 {
                     "id": "configureEvents",
@@ -190,11 +68,14 @@
                     "href": "/settings/notifications/configure-events",
                     "permissions": [
                       {
-                        "method": "featureFlag",
-                        "args": ["platform.notifications.overhaul", true]
-                      },
-                      {
-                        "method": "isOrgAdmin"
+                        "method": "loosePermissions",
+                        "args": [
+                          [
+                            "notifications:*:*",
+                            "notifications:notifications:write",
+                            "notifications:notifications:read"
+                          ]
+                        ]
                       }
                     ]
                 },
@@ -205,25 +86,27 @@
                     "href": "/settings/notifications/eventlog",
                     "permissions": [
                       {
-                        "method": "featureFlag",
-                        "args": ["platform.notifications.overhaul", true]
-                      },
-                      {
                         "method": "isOrgAdmin"
+                      }
+                    ]
+                },
+                {
+                    "id": "notificationsLog",
+                    "appId": "notifications",
+                    "title": "Notifications Log",
+                    "href": "/settings/notifications/notificationslog",
+                    "permissions": [
+                      {
+                        "method": "featureFlag",
+                        "args": ["platform.chrome.notifications-drawer", true]
                       }
                     ]
                 },
                 {
                     "id": "myUserPreferences",
                     "appId": "notifications",
-                    "title": "My User Preferences",
-                    "href": "/settings/notifications/user-preferences",
-                    "permissions": [
-                      {
-                        "method": "featureFlag",
-                        "args": ["platform.notifications.overhaul", true]
-                      }
-                    ]
+                    "title": "Notification Preferences",
+                    "href": "/settings/notifications/user-preferences"
                 }
             ]
         }

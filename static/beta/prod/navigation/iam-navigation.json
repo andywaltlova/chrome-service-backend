@@ -3,6 +3,7 @@
   "title": "Identity & Access Management",
   "navItems": [
     {
+      "id": "my-user-access",
       "appId": "rbac",
       "title": "My User Access",
       "href": "/iam/my-user-access",
@@ -12,7 +13,30 @@
       "title": "User Access",
       "expandable": true,
       "filterable": false,
+      "permissions": [
+        {
+          "method": "loosePermissions",
+          "args": [["rbac:*:*"]]
+        },
+        {
+          "method": "featureFlag",
+          "args": ["platform.rbac.workspaces", false]
+        }
+      ],
       "routes": [
+        {
+          "id": "overview",
+          "appId": "rbac",
+          "title": "Overview",
+          "href": "/iam/user-access/overview",
+          "permissions": [
+            {
+              "method": "featureFlag",
+              "args": ["platform.rbac.overview", true]
+            }
+          ],
+          "product": "Identity & Access Management"
+        },
         {
           "id": "users",
           "appId": "rbac",
@@ -50,6 +74,7 @@
           "id": "groups",
           "appId": "rbac",
           "title": "Groups",
+          "icon": "PlaceholderIcon",
           "href": "/iam/user-access/groups",
           "product": "Identity & Access Management"
         },
@@ -58,6 +83,83 @@
           "appId": "rbac",
           "title": "Red Hat Access Requests",
           "href": "/iam/user-access/access-requests",
+          "notifier": "chrome.accessRequests.hasUnseen"
+        }
+      ]
+    },
+    {
+      "title": "Access Management",
+      "expandable": true,
+      "permissions": [
+        {
+          "method": "loosePermissions",
+          "args": [["rbac:*:*"]]
+        },
+        {
+          "method": "featureFlag",
+          "args": ["platform.rbac.workspaces", true]
+        }
+      ],
+      "routes": [
+        {
+          "id": "overview-new",
+          "appId": "rbac",
+          "title": "Overview",
+          "href": "/iam/access-management/overview",
+          "permissions": [
+            {
+              "method": "featureFlag",
+              "args": ["platform.rbac.overview", true]
+            }
+          ],
+          "product": "Identity & Access Management"
+        },
+        {
+          "id": "workspaces",
+          "appId": "rbac",
+          "title": "Workspaces",
+          "icon": "PlaceholderIcon",
+          "href": "/iam/access-management/workspaces",
+          "product": "Identity & Access Management"
+        },
+        {
+          "id": "usersAndUserGroups",
+          "appId": "rbac",
+          "title": "Users & User Groups",
+          "href": "/iam/access-management/users-and-user-groups",
+          "icon": "PlaceholderIcon",
+          "product": "Identity & Access Management",
+          "description": "Manage your organization's role-based access control (RBAC) to services.",
+          "alt_title": [
+            "role based access management",
+            "user management",
+            "user access",
+            "identity management",
+            "users",
+            "roles",
+            "groups",
+            "permissions",
+            "access",
+            "admin",
+            "administrator",
+            "editor",
+            "authorization",
+            "viewer",
+            "rbac"
+          ]
+        },
+        {
+          "id": "roles-new",
+          "appId": "rbac",
+          "title": "Roles",
+          "href": "/iam/access-management/roles",
+          "product": "Identity & Access Management"
+        },
+        {
+          "id": "accessRequests-new",
+          "appId": "rbac",
+          "title": "Red Hat Access Requests",
+          "href": "/iam/access-management/access-requests",
           "notifier": "chrome.accessRequests.hasUnseen"
         }
       ]
@@ -72,9 +174,18 @@
           "appId": "iam",
           "title": "Authentication Factors",
           "href": "/iam/authentication-policy/authentication-factors",
-          "icon": "PlaceholderiIcon",
+          "icon": "PlaceholderIcon",
           "product": "Identity & Access Management",
           "description": "Manage how your organization authenticates to Red Hat services."
+        },
+        {
+          "id": "idpIntegration",
+          "appId": "iam",
+          "title": "Identity Provider Integration",
+          "href": "/iam/authentication-policy/identity-provider-integration",
+          "icon": "PlaceholderIcon",
+          "product": "Identity & Access Management",
+          "description": "Manage identity provider integration for your organization."
         }
       ]
     },

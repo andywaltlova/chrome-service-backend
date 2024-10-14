@@ -11,33 +11,31 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-func StoreLastVisistedPage(w http.ResponseWriter, r *http.Request) {
+func StoreLastVisitedPages(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(util.USER_CTX_KEY).(models.UserIdentity)
-	userId := user.ID
-	var currentPage models.LastVisitedPage
-	err := json.NewDecoder(r.Body).Decode(&currentPage)
-	currentPage.UserIdentityID = userId
+	var recentPages models.LastVisitedRequest
+
+	err := json.NewDecoder(r.Body).Decode(&recentPages)
 
 	if err != nil {
 		errString := "Invalid last visited pages request payload."
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(errString))
-		logrus.Errorf("unable to request body for last visisted pages, %s", err.Error())
+		logrus.Errorf("unable to request body for last visited pages, %s", err.Error())
 		return
 	}
 
-	err = service.HandlePostLastVisitedPages(userId, currentPage)
+	err = service.HandlePostLastVisitedPages(recentPages.Pages, &user)
 	if err != nil {
 		panic(err)
 	}
 
-	pages, err := service.GetUserslastVisistedPages(userId)
-
 	if err != nil {
 		panic(err)
 	}
 
-	resp := util.ListResponse[models.LastVisitedPage]{
+	pages := user.LastVisitedPages.Data()
+	resp := util.ListResponse[models.VisitedPage]{
 		Data: pages,
 		Meta: util.ListMeta{
 			Count: len(pages),
@@ -49,14 +47,10 @@ func StoreLastVisistedPage(w http.ResponseWriter, r *http.Request) {
 
 func GetLastVisitedPages(w http.ResponseWriter, r *http.Request) {
 	user := r.Context().Value(util.USER_CTX_KEY).(models.UserIdentity)
-	userId := user.ID
 
-	pages, err := service.GetUserslastVisistedPages(userId)
+	pages := user.LastVisitedPages.Data()
 
-	if err != nil {
-		panic(err)
-	}
-	resp := util.ListResponse[models.LastVisitedPage]{
+	resp := util.ListResponse[models.VisitedPage]{
 		Data: pages,
 		Meta: util.ListMeta{
 			Count: len(pages),
@@ -67,6 +61,6 @@ func GetLastVisitedPages(w http.ResponseWriter, r *http.Request) {
 }
 
 func MakeLastVisitedRoutes(sub chi.Router) {
-	sub.Post("/", StoreLastVisistedPage)
+	sub.Post("/", StoreLastVisitedPages)
 	sub.Get("/", GetLastVisitedPages)
 }

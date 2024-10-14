@@ -32,13 +32,39 @@
           "title": "Groups",
           "href": "/insights/inventory/groups",
           "product": "Red Hat Insights",
-          "description": "Inventory groups",
+          "description": "Group your Red Hat Enterprise Linux systems for more granular User Access.",
+          "alt_title": [
+            "group",
+            "groups",
+            "Group",
+            "Groups"
+          ],
           "permissions": [
-            {
-              "method": "featureFlag",
-              "args": ["hbi.ui.inventory-groups", true]
-            }
-          ]
+                {
+                  "method": "featureFlag",
+                  "args": ["platform.rbac.groups-to-workspaces-rename", false]
+                }
+              ]
+        },
+        {
+          "id": "workspaces",
+          "appId": "inventory",
+          "title": "Workspaces",
+          "href": "/insights/inventory/workspaces",
+          "product": "Red Hat Insights",
+          "description": "Group your Red Hat Enterprise Linux systems for more granular User Access.",
+          "alt_title": [
+            "workspace",
+            "workspaces",
+            "Workspace",
+            "Workspaces"
+          ],
+          "permissions": [
+                {
+                  "method": "featureFlag",
+                  "args": ["platform.rbac.groups-to-workspaces-rename", true]
+                }
+              ]
         },
         {
           "id": "imageBuilder",
@@ -99,6 +125,7 @@
               "description": "Configure your systems to execute Ansible Playbooks.",
               "alt_title": [
                 "Remote host configuration",
+                "remote host configuration",
                 "connect systems",
                 "connection options",
                 "connect settings",
@@ -111,7 +138,7 @@
             },
             {
               "id": "activationKeys",
-              "appId": "connector",
+              "appId": "activation-keys",
               "title": "Activation Keys",
               "href": "/insights/connector/activation-keys",
               "icon": "InsightsIcon",
@@ -128,7 +155,7 @@
                 "repositories",
                 "system purpose",
                 "sla",
-                "content" 
+                "content"
               ]
             },
             {
@@ -136,14 +163,9 @@
               "appId": "inventory",
               "title": "Staleness and Deletion",
               "href": "/insights/inventory/staleness-and-deletion",
+              "icon": "InsightsIcon",
               "product": "Red Hat Insights",
-              "description": "Inventory Host Staleness and Deletion",
-              "permissions": [
-                {
-                  "method": "featureFlag",
-                  "args": ["hbi.custom-staleness", true]
-                }
-              ]
+              "description": "Configure when your systems should be marked as stale, marked as stale warning, and be deleted."
             }
           ]
         }
@@ -164,6 +186,7 @@
           "description": "View applicable advisories and updates for your Red Hat Enterprise Linux systems.",
           "alt_title": [
             "Errata",
+            "errata",
             "patch",
             "updates",
             "insights"
@@ -176,13 +199,36 @@
           "href": "/insights/patch/packages",
           "icon": "InsightsIcon",
           "product": "Red Hat Insights",
-          "subtitle": "Red Hat Insights for RHEL"
+          "subtitle": "Red Hat Insights for RHEL",
+          "description": "Review package applicability on your Red Hat Enterprise Linux systems.",
+          "alt_title": [
+            "Packages",
+            "updates",
+            "insights",
+            "repositories",
+            "rpm",
+            "dnf",
+            "yum",
+            "errata",
+            "Errata",
+            "patch",
+            "advisories",
+            "patching",
+            "templates",
+            "content management",
+            "content view",
+            "patch cycle",
+            "satellite",
+            "RHSA",
+            "RHBA",
+            "RHEA"
+          ]
         },
         {
           "id": "repositories",
           "appId": "contentSources",
           "title": "Repositories",
-          "href": "/insights/content",
+          "href": "/insights/content/repositories",
           "icon": "SubscriptionsIcon",
           "product": "Red Hat Insights",
           "subtitle": "Red Hat Insights for RHEL",
@@ -193,10 +239,10 @@
             "my repos",
             "repos",
             "repo",
-            "repositories", 
+            "repositories",
             "repository",
             "insights",
-            "repository sets", 
+            "repository sets",
             "popular",
             "Red hat repositories",
             "Snapshots",
@@ -211,10 +257,42 @@
             "content",
             "dnf",
             "yum"
-          ]
+          ],
+          "description": "Link your external repositories to build images."
+        },
+        {
+          "id": "templates",
+          "appId": "contentSources",
+          "title": "Templates",
+          "href": "/insights/content/templates",
+          "icon": "InsightsIcon",
+          "product": "Red Hat Insights",
+          "subtitle": "Red Hat Insights for RHEL",
+          "alt_title": [
+            "template",
+            "add template",
+            "content",
+            "custom content"
+          ],
+          "permissions": [
+            {
+              "method": "isBeta"
+            },
+            {
+              "method": "withEmail",
+              "args": [
+                "adewar+rhn@redhat.com",
+                "bhouse+1@redhat.com",
+                "jsherril+eng@redhat.com",
+                "swadeley+eng@redhat.com"
+              ]
+            }
+          ],
+          "description": "Create content templates for use with systems."
         },
         {
           "title": "Patch",
+          "id": "patch",
           "expandable": true,
           "routes": [
             {
@@ -222,7 +300,20 @@
               "appId": "patch",
               "title": "Systems",
               "href": "/insights/patch/systems",
-              "product": "Red Hat Insights"
+              "product": "Red Hat Insights",
+              "description": "View applicable advisories and updates for your Red Hat Enterprise Linux systems.",
+              "alt_title": [
+                "Patch",
+                "content",
+                "advisories",
+                "insights",
+                "Rhel",
+                "patch",
+                "updates",
+                "update",
+                "systems",
+                "upgrade"
+              ]
             },
             {
               "id": "patchTemplates",
@@ -241,6 +332,7 @@
       "routes": [
         {
           "title": "Advisor",
+          "id": "advisor",
           "expandable": true,
           "routes": [
             {
@@ -291,33 +383,27 @@
           ]
         },
         {
-          "title": "Drift",
-          "expandable": true,
-          "routes": [
-            {
-              "id": "driftComparison",
-              "appId": "drift",
-              "title": "Comparison",
-              "href": "/insights/drift/",
-              "product": "Red Hat Insights"
-            },
-            {
-              "id": "driftBaselines",
-              "appId": "drift",
-              "title": "Baselines",
-              "href": "/insights/drift/baselines",
-              "product": "Red Hat Insights"
-            }
-          ]
-        },
-        {
           "id": "policies",
           "appId": "policies",
           "title": "Policies",
-          "href": "/insights/policies/policies/list",
+          "href": "/insights/policies",
           "icon": "InsightsIcon",
           "subtitle": "Red Hat Insights for RHEL",
-          "description": "Monitor your RHEL hosts against set parameters to detect deviation or misalignment."
+          "description": "Monitor your Red Hat Enterprise Linux inventory systems against set parameters to detect deviation or misalignment.",
+          "alt_title":[
+            "policies",
+            "facts",
+            "conditions",
+            "trigger", "notifications",
+            "alerts",
+            "insights",
+            "notify",
+            "integration",
+            "conditions",
+            "alerts",
+            "events",
+            "raise alerts on system configuration changes"
+          ]
         }
       ]
     },
@@ -327,6 +413,7 @@
       "routes": [
         {
           "title": "Vulnerability",
+          "id": "vulnerability",
           "expandable": true,
           "subtitle": "Red Hat Insights for RHEL",
           "routes": [
@@ -356,7 +443,7 @@
             }
           ],
           "alt_title": [
-            "CVEs", 
+            "CVEs",
             "CVE",
             "Security",
             "Vulnerability",
@@ -380,13 +467,15 @@
             "critical",
             "security rule",
             "errata",
+            "Errata",
             "affected but not vulnerable",
-            "severity", 
+            "severity",
             "CVE-"
           ]
         },
         {
           "title": "Compliance",
+          "id": "compliance",
           "expandable": true,
           "routes": [
             {
@@ -397,8 +486,15 @@
               "icon": "InsightsIcon",
               "product": "Red Hat Insights",
               "description": "Evaluate your Red Hat Enterprise systems’ compliance with security or regulatory standards.",
+              "alt_title": ["rules", "rule"]
+            },
+            {
+              "id": "scapPolicies",
+              "appId": "compliance",
+              "title": "SCAP Policies",
+              "href": "/insights/compliance/scappolicies",
+              "product": "Red Hat Insights",
               "alt_title": [
-                "Compliance",
                 "security",
                 "policies",
                 "SCAP",
@@ -412,19 +508,11 @@
                 "DSS",
                 "CSI",
                 "C2S",
-                "rules",
                 "DISA STIG",
                 "PCI-DSS",
                 "NIST",
                 "OSPP"
               ]
-            },
-            {
-              "id": "scapPolicies",
-              "appId": "compliance",
-              "title": "SCAP Policies",
-              "href": "/insights/compliance/scappolicies",
-              "product": "Red Hat Insights"
             },
             {
               "id": "complianceSystems",
@@ -437,6 +525,7 @@
         },
         {
           "title": "Malware",
+          "id": "malware",
           "expandable": true,
           "routes": [
             {
@@ -464,81 +553,6 @@
       "expandable": true,
       "routes": [
         {
-          "expandable": true,
-          "title": "Subscriptions",
-          "routes": [
-            {
-              "id": "subs.rhel",
-              "appId": "subscriptions",
-              "title": "RHEL",
-              "href": "/insights/subscriptions/rhel",
-              "product": "Subscription Watch"
-            },
-            {
-              "id": "subscriptions",
-              "appId": "subscriptions",
-              "title": "OpenShift Subscriptions",
-              "href": "/openshift/subscriptions/openshift",
-              "product": "Subscription Watch"
-            },
-            {
-              "id": "subscriptionsInventory",
-              "appId": "subscriptionInventory",
-              "title": "Subscription Inventory",
-              "href": "/insights/subscriptions/inventory",
-              "icon": "SubscriptionsIcon",
-              "product": "Subscription Watch",
-              "subtitle":"Red Hat Insights for RHEL",
-              "description": "List your purchased subscriptions and view more information about each one.",
-              "alt_title": [
-                "subscription",
-                "subscriptions",
-                "subscription list",
-                "subscription inventory",
-                "inventory",
-                "Red Hat Subscription Management",
-                "yearly",
-                "on-demand",
-                "contract",
-                "purchase",
-                "annual",
-                "BYOS",
-                "bring your own subscription",
-                "PAYG",
-                "pay as you go",
-                "renew",
-                "renewals",
-                "expiring",
-                "expiration",
-                "expired"
-              ]
-            },
-            {
-              "id": "manifests",
-              "appId": "manifests",
-              "title": "Manifests",
-              "href": "/insights/subscriptions/manifests",
-              "icon": "InsightsIcon",
-              "product": "Subscription Watch",
-              "subtitle": "Red Hat Insights for RHEL",
-              "description": "Export subscription manifests for Red Hat Satellite.",
-              "alt_title": [
-                "manifests",
-                "subscription allocations",
-                "distributors",
-                "Satellite"
-              ]
-            },
-            {
-              "id": "subscriptionsDocumentation",
-              "title": "Documentation",
-              "isExternal": true,
-              "filterable": false,
-              "href": "https://access.redhat.com/products/subscription-central"
-            }
-          ]
-        },
-        {
           "id": "ros",
           "appId": "ros",
           "title": "Resource Optimization",
@@ -560,6 +574,14 @@
             "resource optimization",
             "resource optimisation"
           ]
+        },
+        {
+          "id": "subscriptions",
+          "appId": "subscriptions",
+          "title": "Subscriptions",
+          "filterable": false,
+          "href": "/subscriptions/usage/rhel",
+          "product": "Red Hat Insights"
         }
       ]
     },
@@ -597,7 +619,39 @@
           "href": "/insights/tasks",
           "icon": "InsightsIcon",
           "product": "Red Hat Insights",
-          "subtitle": "Red Hat Insights for RHEL"
+          "subtitle": "Red Hat Insights for RHEL",
+          "description": "Perform Red Hat-recommended analysis across your Red Hat Enterprise Linux fleet, like upgrade and conversion readiness.",
+          "alt_title": [
+            "Tasks",
+            "tasks",
+            "task",
+            "CentOS Conversion",
+            "centos conversion",
+            "Pre Conversion Analysis",
+            "pre conversion analysis",
+            "Pre-Conversion Analysis",
+            "pre-conversion analysis",
+            "Convert to RHEL",
+            "convert to rhel",
+            "C2R",
+            "c2r",
+            "CentOS",
+            "centos",
+            "Centos",
+            "centOS",
+            "upgrade",
+            "update",
+            "insights",
+            "automation",
+            "leapp",
+            "migrate",
+            "version",
+            "9.0",
+            "8.0",
+            "convert",
+            "conversion",
+            "migration"
+          ]
         }
       ]
     },
@@ -622,7 +676,13 @@
       "icon": "InsightsIcon",
       "product": "Red Hat Insights",
       "subtitle": "Red Hat Insights for RHEL",
-      "description": "Register your systems with the Red Hat Insights Client to view them on the Red Hat Hybrid Cloud Console."
+      "description": "Register your systems with the Red Hat Insights Client to view them on the Red Hat Hybrid Cloud Console.",
+      "alt_title": [
+        "register rhel",
+        "Register RHEL",
+        "rhel",
+        "RHEL"
+      ]
     },
     {
       "id": "learningResources",

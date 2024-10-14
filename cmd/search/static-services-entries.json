@@ -4,9 +4,9 @@
     "links": [
       {
         "custom": true,
-        "id": "OPENSHIFT.insights.Advisor.recommendations",
-        "href": "/openshift/insights/advisor/recommendations",
-        "title": "Red Hat OpenShift Cluster Manager Recommendations",
+        "id": "OPENSHIFT.insights.Advisor.advisor-clusters",
+        "href": "/openshift/insights/advisor/clusters",
+        "title": "Clusters - Advisor",
         "description": "See targeted recommendations to optimize your OpenShift clusters’ availability, performance, and security.",
         "alt_title": [
           "Insights Advisor",
@@ -32,35 +32,37 @@
           "problem",
           "issue"
         ]
-      },
+      }
+    ]
+  },
+  {
+    "id": "rhel-advisor",
+    "links": [
       {
         "custom": true,
-        "id": "OPENSHIFT.insights.Advisor.advisor-clusters",
-        "href": "/openshift/insights/advisor/clusters",
-        "title": "Red Hat OpenShift Cluster Manager Advisor",
+        "id": "RHEL.advisor.recommendations",
+        "title": "Recommendations - Advisor",
+        "href": "/insights/advisor/recommendations",
+        "description": "View details about your Red Hat Enterprise Linux systems.",
         "alt_title": [
-          "Insights Advisor",
-          "OpenShift Advisor",
-          "Advisor",
-          "Recommendations",
-          "Proactive support",
-          "Proactive support",
-          "risk",
-          "support",
-          "update",
-          "update risk",
-          "update",
-          "issues",
-          "remediation",
-          "cluster state",
+          "Rules",
+          "recommendations",
+          "insights",
+          "configuration",
+          "security",
+          "stability",
+          "performance",
+          "advisor",
+          "incidents",
+          "recommendations",
+          "configuration",
+          "pathways",
+          "critical",
+          "upgrade",
+          "upgrade risk",
+          "incident",
           "recommendation",
-          "cluster health",
-          "remote health",
-          "proactive",
-          "support",
-          "fix",
-          "problem",
-          "issue"
+          "pathway"
         ]
       }
     ]
@@ -85,47 +87,29 @@
     ]
   },
   {
-    "id": "ansible-drift",
+    "id": "ansible-advisor",
     "links": [
       {
         "custom": true,
-        "id": "ANSIBLE.operations.Drift.drift",
-        "href": "/ansible/drift/",
-        "title": "Ansible Drift Comparison",
-        "description": "Compare systems in your Ansible inventory to one another or against a set baseline.",
+        "id": "ANSIBLE.operations.advisor.recommendations",
+        "href": "/ansible/advisor/recommendations",
+        "title": "Recommendations - Advisor",
+        "description": "See targeted recommendations to optimize your Ansible hosts’ availability, performance, and security.",
         "alt_title": [
-          "Comparison",
-          "system details",
-          "system facts",
-          "troubleshooting",
-          "configuration drift",
-          "configuration differences",
-          "baseline",
-          "configuration standard",
-          "drift from baseline",
-          "drift over time",
-          "configuration changes",
-          "drift"
-        ]
-      },
-      {
-        "custom": true,
-        "id": "ANSIBLE.operations.Drift.drift.baseline",
-        "href": "/ansible/drift/baselines",
-        "title": "Ansible Drift Baselines",
-        "alt_title": [
-          "Comparison",
-          "system details",
-          "system facts",
-          "troubleshooting",
-          "configuration drift",
-          "configuration differences",
-          "baseline",
-          "configuration standard",
-          "drift from baseline",
-          "drift over time",
-          "configuration changes",
-          "drift"
+          "Rules",
+          "rules",
+          "recommendations",
+          "Configuration",
+          "security",
+          "stability",
+          "performance",
+          "advisor",
+          "incidents",
+          "pathways",
+          "critical",
+          "incident",
+          "recommendation",
+          "pathway"
         ]
       }
     ]
@@ -133,7 +117,7 @@
   {
     "id": "ACS-custom",
     "links": [
-      "application-services.acs-section"
+      "openshift.acs-section"
     ]
   },
   {
@@ -144,63 +128,71 @@
       "id": "OPENSHIFT.cluster.create.aws",
       "href": "/openshift/create",
       "title": "Red Hat OpenShift Service on AWS",
-      "alt_title": ["ROSA", "AWS", "OpenShift on AWS"] 
+      "alt_title": ["ROSA", "AWS", "OpenShift on AWS"]
       },
       {
       "custom": true,
       "id": "OPENSHIFT.cluster.create.dedicated",
       "href": "/openshift/create",
       "title": "Red Hat OpenShift Dedicated",
-      "alt_title": ["OSD","Dedicated", "GCP", "AWS", "OpenShift on AWS", "OpenShift on GCP"] 
+      "alt_title": ["OSD","Dedicated", "GCP", "AWS", "OpenShift on AWS", "OpenShift on GCP"]
       },
       {
       "custom": true,
       "id": "OPENSHIFT.cluster.create.azure",
       "href": "/openshift/create",
       "title": "Azure Red Hat OpenShift",
-      "alt_title": ["ARO", "Azure", "OpenShift on Azure"] 
+      "alt_title": ["ARO", "Azure", "OpenShift on Azure"]
       },
       {
       "custom": true,
       "id": "OPENSHIFT.cluster.create.ibm",
       "href": "/openshift/create",
       "title": "Red Hat OpenShift on IBM Cloud",
-      "alt_title": ["ROKS", "IBM Cloud", "OpenShift on IBM Cloud"] 
+      "alt_title": ["ROKS", "IBM Cloud", "OpenShift on IBM Cloud"]
       }
     ]
   },
   {
-    "id": "patch-system",
+    "id": "rhel-patch",
     "links": [
       {
         "custom": true,
-        "id": "RHEL.Content.Patch.patch",
-        "href": "/insights/patch/systems",
-        "title": "Patch Systems",
-        "subtitle": "Red Hat Insights for RHEL",
+        "id": "RHEL.Content.Patch",
+        "href": "/insights/patch",
+        "title": "Patch",
+        "description": "Patch Analyzes for Red Hat product advisory applicability to stay up to date.",
         "alt_title": [
-          "Patch",
+          "rpm",
+          "dnf",
+          "yum",
+          "errata",
+          "Errata",
+          "patch",
+          "advisories",
+          "patching",
+          "templates",
+          "content management",
+          "content view",
+          "patch cycle",
+          "satellite",
+          "RHSA",
+          "RHBA",
+          "RHEA",
+          "patching",
           "content",
           "advisories",
-          "insights",
-          "Rhel", 
-          "patch",
-          "updates",
           "update",
-          "systems",
-          "upgrade"
+          "updates",
+          "content templates"
         ]
-      }
-    ]
-  },
-  {
-    "id": "patch-template",
-    "links": [
+      },
       {
         "custom": true,
-        "id": "RHEL.Content.Patch.template",
+        "id": "RHEL.Content.Patch.templates",
         "href": "/insights/patch/templates",
-        "title": "Red Hat Patch Templates",
+        "title": "Templates - Patch",
+        "description": "Control the scope of package and advisory updates to be installed on Red Hat Enterprise Linux systems.",
         "alt_title": [
           "Template",
           "patch template",
@@ -212,17 +204,32 @@
           "update",
           "content view"
         ]
-      }
-    ]
-  },
-  {
-    "id": "rhel-content-patch-packages",
-    "links": [
+      },
       {
         "custom": true,
-        "id": "RHEL.patch",
+        "id": "RHEL.Content.Patch.systems",
+        "href": "/insights/patch/systems",
+        "title": "Systems - Patch",
+        "description": "View applicable advisories and updates for your Red Hat Enterprise Linux systems.",
+        "alt_title": [
+          "Patch",
+          "content",
+          "advisories",
+          "insights",
+          "Rhel",
+          "patch",
+          "updates",
+          "update",
+          "systems",
+          "upgrade"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "RHEL.Content.Patch.packages",
+        "title": "Packages - Content",
         "href": "/insights/patch/packages",
-        "title": "RHEL Packages",
+        "description": "Review package applicability on your Red Hat Enterprise Linux systems.",
         "alt_title": [
           "Packages",
           "updates",
@@ -232,6 +239,7 @@
           "dnf",
           "yum",
           "errata",
+          "Errata",
           "patch",
           "advisories",
           "patching",
@@ -254,40 +262,62 @@
         "custom": true,
         "id": "RHEL.security.malware.signatures",
         "href": "/insights/malware/signatures",
-        "title": "Malware signatures",
+        "description": "Identify potential malware on your Red Hat Enterprise Linux systems.",
+        "title": "Signatures - Malware",
         "alt_title": [
-          "Malware",
+          "Threat",
+          "yara",
           "security",
-          "X_Force",
-          "Yara",
+          "X-force",
           "scanner",
-          "risk"
+          "insights",
+          "virus",
+          "malicious",
+          "spyware",
+          "adware",
+          "trojan",
+          "worm",
+          "malware",
+          "security",
+          "risk",
+          "ransomware"
         ]
       },
       {
         "custom": true,
         "id": "RHEL.security.malware.malwareSystems",
         "href": "/insights/malware/systems",
-        "title": "Malware systems",
+        "title": "Systems - Malware",
+        "description": "View details about your Red Hat Enterprise Linux systems and their potentially detected malware.",
         "alt_title": [
-          "Malware",
+          "Threat",
+          "yara",
           "security",
-          "X_Force",
-          "Yara",
+          "X-force",
           "scanner",
-          "risk"
+          "insights",
+          "virus",
+          "malicious",
+          "spyware",
+          "adware",
+          "trojan",
+          "worm",
+          "malware",
+          "security",
+          "risk",
+          "ransomware"
         ]
       }
     ]
   },
-  {  
+  {
     "id": "openshift-vulnerability",
     "links": [
       {
         "custom": true,
         "id": "OPENSHIFT.cves",
         "href": "/openshift/insights/vulnerability/cves",
-        "title": "Red Hat Openshift Vulnerability Dashboard",
+        "title": "CVEs - Vulnerability",
         "description": "Identify and prioritize security vulnerabilities within your OpenShift clusters based on severity and frequency.",
         "alt_title": [
           "CVEs",
@@ -310,13 +340,14 @@
           "cvss",
           "risk",
           "critical",
-          "errata"
+          "errata",
+          "Errata"
         ]
       },
       {
         "id": "OPENSHIFT.vulnerabilityClusters",
         "href": "/openshift/insights/vulnerability/clusters",
-        "title": "Red Hat Openshift Vulnerability Clusters",
+        "title": "Clusters - Vulnerability",
         "alt_title": [
           "CVEs",
           "CVE",
@@ -338,62 +369,22 @@
           "cvss",
           "risk",
           "critical",
-          "errata"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "rhel-drift",
-    "links": [
-      {
-        "custom": true,
-        "id": "RHEL.Operations.Drift.drift",
-        "href": "/insights/drift/",
-        "title": "RHEL Drift Comparison",
-        "description": "Compare your Red Hat Enterprise Linux systems to one another or against a set baseline.",
-        "alt_title": [
-          "Drift",
-          "Comparison",
-          "Baseline",
-          "insights",
-          "Comparison",
-          "system details",
-          "system facts",
-          "troubleshooting",
-          "configuration drift",
-          "configuration differences",
-          "baseline",
-          "configuration standard",
-          "drift from baseline",
-          "drift over time",
-          "configuration changes",
-          "history"
+          "errata",
+          "Errata"
         ]
       },
       {
         "custom": true,
-        "id": "RHEL.Operations.Drift.drift.baseline",
-        "href": "/insights/drift/baselines",
-        "title": "RHEL Drift Baselines",
-        "alt_title": [
-          "Drift",
-          "Comparison",
-          "Baseline",
-          "insights",
-          "Comparison",
-          "system details",
-          "system facts",
-          "troubleshooting",
-          "configuration drift",
-          "configuration differences",
-          "baseline",
-          "configuration standard",
-          "drift from baseline",
-          "drift over time",
-          "configuration changes",
-          "history"
-        ]
+        "id": "OPENSHIFT.clusterManager",
+        "title": "Cluster Manager",
+        "href": "/openshift",
+        "description": "View, Register, or Create an OpenShift Cluster."
+      },
+      {
+        "custom": true,
+        "id": "OPENSHIFT.costManagementOverview",
+        "title": "Overview - Cost Management",
+        "href": "/openshift/cost-management"
       }
     ]
   },
@@ -404,7 +395,8 @@
         "custom": true,
         "id": "RHEL.Inventory.systems",
         "href": "/insights/inventory",
-        "title": "RHEL Inventory Systems",
+        "title": "Systems - Inventory",
+        "description": "View details about your Red Hat Enterprise Linux systems.",
         "alt_title":[
           "Inventory",
           "rhel systems",
@@ -422,64 +414,18 @@
           "machine(s)",
           "server(s)"
         ]
-      }
-    ]
-  },
-  {
-    "id": "rhel-policies",
-    "links": [
+      },
       {
         "custom": true,
-        "id": "RHEL.policies",
-        "href": "/insights/policies",
-        "title": "RHEL Policies",
-        "alt_title":[
-          "policies",
-          "facts",
-          "conditions",
-          "trigger", "notifications",
-          "alerts",
-          "insights",
-          "notify",
-          "integration",
-          "conditions",
-          "alerts",
-          "events",
-          "raise alerts on system configuration changes"
-        ]
-      }
-    ]
-  },
-  {
-    "id": "costManagement",
-    "links": [
-      {
-        "custom": true,
-        "id": "SETTINGS.applications.costManagement",
-        "href": "/settings/applications/cost-management",
-        "title": "Cost Management",
+        "id": "RHEL.Inventory.workspaces",
+        "href": "/insights/inventory/workspaces",
+        "title": "Workspaces - Inventory",
+        "description": "Organize your Red Hat Enterprise Linux systems with workspaces for more granular User Access.",
         "alt_title": [
-          "cost management",
-          "cost",
-          "finsights",
-          "finops",
-          "chargeback",
-          "showback",
-          "cost management for openshift",
-          "openshift cost",
-          "rhcm",
-          "spend",
-          "distribute",
-          "cost model",
-          "money",
-          "bill",
-          "billing",
-          "financial",
-          "chargeback",
-          "showback",
-          "rate",
-          "save",
-          "savings"
+          "group",
+          "groups",
+          "Group",
+          "Groups"
         ]
       }
     ]
@@ -489,25 +435,35 @@
     "links": [
       {
         "custom": true,
-        "id": "complianceReports",
+        "id": "RHEL.compliance.reports",
+        "title": "Reports - Compliance",
         "href": "/insights/compliance/reports",
-        "title": "Reports",
-        "alt_title": [
-          "Compliance",
-          "security",
-          "regulatory"
-        ],
-        "description": "Evaluate your Red Hat Enterprise systems’ compliance with security or regulatory standards."
+        "description": "Evaluate your Red Hat Enterprise systems’ compliance with security or regulatory standards.",
+        "alt_title": ["rules", "rule"]
       },
       {
         "custom": true,
-        "id": "scapPolicies",
+        "id": "RHEL.compliance.policies",
+        "title": "SCAP Policies - Compliance",
         "href": "/insights/compliance/scappolicies",
-        "title": "SCAP Policies",
         "alt_title": [
+          "security",
+          "policies",
           "SCAP",
-          "security content automation protocol",
-          "policies"
+          "policy",
+          "insights",
+          "regulatory",
+          "regulations",
+          "OpenSCAP",
+          "PCI",
+          "HIPAA",
+          "DSS",
+          "CSI",
+          "C2S",
+          "DISA STIG",
+          "PCI-DSS",
+          "NIST",
+          "OSPP"
         ]
       }
     ]
@@ -533,15 +489,282 @@
     ]
   },
   {
-    "id": "rhel-tasks",
+    "id": "rhel-dashboard",
     "links": [
       {
         "custom": true,
-        "id": "RHEL.tasks",
-        "href": "/insights/tasks",
-        "title": "RHEL Tasks",
+        "id": "RHEL.dashboard",
+        "href": "/insights/dashboard",
+        "title": "Dashboard",
+        "subtitle": "Red Hat Insights for RHEL",
+        "description": "View details about your Red Hat Enterprise Linux systems.",
         "alt_title": [
-          "Task",
+          "Dashboard",
+          "insights",
+          "Rhel"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "rhel-remediations",
+    "links": [
+      {
+        "custom": true,
+        "id": "RHEL.remediations",
+        "href": "/insights/remediations",
+        "title": "Remediations - Automation",
+        "subtitle": "Red Hat Insights for RHEL",
+        "description": "Use Ansible Playbooks to resolve configuration, security, and compliance issues identified on your Red Hat Enterprise Linux systems.",
+        "alt_title": [
+          "remediate",
+          "playbook",
+          "fix",
+          "solve",
+          "find it fix it",
+          "fifi",
+          "cloud connector",
+          "insights",
+          "automation",
+          "ansible",
+          "patch"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "rhel-vulnerability",
+    "links": [
+      {
+        "custom": true,
+        "id": "RHEL.vulnerability",
+        "href": "/insights/vulnerability",
+        "title": "Vulnerability",
+        "subtitle": "Red Hat Insights for RHEL",
+        "description": "Identify and prioritize security vulnerabilities within your Red Hat Enterprise Linux systems based on severity and frequency.",
+        "alt_title": [
+          "CVEs",
+          "CVE",
+          "security",
+          "Vulnerability",
+          "Vulnerability Management",
+          "insights",
+          "Vulnerable",
+          "exposure",
+          "Weakness",
+          "compliance",
+          "security gap",
+          "breach",
+          "Hearltbleed",
+          "Spectre",
+          "Patch",
+          "security",
+          "vulnerabilities",
+          "cve",
+          "common vulnerability exposure",
+          "cvss",
+          "risk",
+          "critical",
+          "security rule",
+          "errata",
+          "Errata",
+          "affected but not vulnerable",
+          "severity",
+          "CVE-"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "RHEL.imageBuilder",
+        "title": "Images - Inventory",
+        "href": "/insights/image-builder",
+        "description": "Build and manage Red Hat Enterprise Linux images and environments.",
+        "alt_title": [
+          "Images",
+          "image",
+          "image builder",
+          "my images",
+          "gold image",
+          "template image",
+          "vm template",
+          "image template",
+          "blueprint",
+          "image",
+          "builder",
+          "images",
+          "build",
+          "image-builder",
+          "insights",
+          "Build image",
+          "image builder",
+          "gold image",
+          "blueprint",
+          "template image",
+          "vm template",
+          "image template",
+          "vmware template",
+          "packer build",
+          "packer template",
+          "RHEL AMI",
+          "RHEL machine image",
+          "azure",
+          "aws",
+          "build",
+          "assemble",
+          "image-builder"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "RHEL.rhc",
+        "title": "Remote Host Configuration - System Configuration",
+        "href": "/insights/connector",
+        "description": "Configure your systems to execute Ansible Playbooks.",
+        "alt_title": [
+          "Remote host configuration",
+          "remote host configuration",
+          "connect systems",
+          "connection options",
+          "connect settings",
+          "settings",
+          "Register",
+          "rhc",
+          "RHC",
+          "rhcd"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "RHEL.activationKeys",
+        "title": "Activation Keys - System Configuration",
+        "href": "/insights/connector/activation-keys",
+        "description": "Create activation keys to register your systems and configure repositories without using a username and password.",
+        "alt_title": [
+          "Subscription key",
+          "sca",
+          "simple content access",
+          "activate",
+          "register",
+          "AK",
+          "repositories",
+          "system purpose",
+          "sla",
+          "content"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "RHEL.advisories",
+        "title": "Advisories - Content",
+        "href": "/insights/patch/advisories",
+        "description": "View applicable advisories and updates for your Red Hat Enterprise Linux systems.",
+        "alt_title": [
+          "Errata",
+          "errata",
+          "patch",
+          "updates",
+          "insights"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "RHEL.repositories",
+        "title": "Repositories - Content",
+        "href": "/insights/content/repositories",
+        "alt_title": [
+          "Content",
+          "custom content",
+          "my content",
+          "my repos",
+          "repos",
+          "repo",
+          "repositories",
+          "repository",
+          "insights",
+          "repository sets",
+          "popular",
+          "Red hat repositories",
+          "Snapshots",
+          "compare",
+          "custom content",
+          "Red hat repositories",
+          "popular",
+          "nvidia",
+          "epel",
+          "add repositories",
+          "introspect",
+          "content",
+          "dnf",
+          "yum"
+        ],
+        "description": "Link your external repositories to build images."
+      },
+      {
+        "custom": true,
+        "id": "RHEL.policies",
+        "title": "Policies - Operations",
+        "href": "/insights/policies",
+        "description": "Monitor your Red Hat Enterprise Linux inventory systems against set parameters to detect deviation or misalignment.",
+        "alt_title":[
+          "policies",
+          "facts",
+          "conditions",
+          "trigger", "notifications",
+          "alerts",
+          "insights",
+          "notify",
+          "integration",
+          "conditions",
+          "alerts",
+          "events",
+          "raise alerts on system configuration changes"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "RHEL.ros",
+        "title": "Resource Optimization - Business",
+        "href": "/insights/ros",
+        "description": "Optimize your public cloud-based Red Hat Enterprise Linux systems based on CPU, memory, and disk input/output performance.",
+        "alt_title": [
+          "optimization",
+          "optimisation",
+          "optimize",
+          "optimise",
+          "usage",
+          "utilization",
+          "utilisation",
+          "save",
+          "savings",
+          "resource optimization",
+          "resource optimisation"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "RHEL.tasks",
+        "appId": "tasks",
+        "title": "Tasks - Automation",
+        "href": "/insights/tasks",
+        "description": "Perform Red Hat-recommended analysis across your Red Hat Enterprise Linux fleet, like upgrade and conversion readiness.",
+        "alt_title": [
+          "Tasks",
+          "tasks",
+          "task",
+          "CentOS Conversion",
+          "centos conversion",
+          "Pre Conversion Analysis",
+          "pre conversion analysis",
+          "Pre-Conversion Analysis",
+          "pre-conversion analysis",
+          "Convert to RHEL",
+          "convert to rhel",
+          "C2R",
+          "c2r",
+          "CentOS",
+          "centos",
+          "Centos",
+          "centOS",
           "upgrade",
           "update",
           "insights",
@@ -559,18 +782,173 @@
     ]
   },
   {
-    "id": "rhel-dashboard",
+    "id": "edge-custom-repositories",
     "links": [
       {
         "custom": true,
-        "id": "RHEL.dashboard",
-        "href": "/insights/dashboard",
-        "title": "Insights Dashboard",
-        "subtitle": "Red Hat Insights for RHEL",
+        "id": "EDGE.customRepositories",
+        "title": "Custom Repositories - Manage Images",
+        "href": "/edge/repositories",
         "alt_title": [
-          "Dashboard",
-          "insights",
-          "Rhel"
+          "content",
+          "repositories",
+          "repos",
+          "repository",
+          "repo"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cost-management",
+    "links": [
+      {
+        "custom": true,
+        "id": "OPENSHIFT.costManagement.costManagementOptimizations",
+        "title": "Optimizations - Cost Management",
+        "description": "Optimize the size of your containers and pods with recommendations from resource optimization for OpenShift.",
+        "href": "/openshift/cost-management/optimizations",
+        "alt_title": [
+          "ros",
+          "ros for openshift",
+          "optimizations for openshift",
+          "optimizations",
+          "optimization",
+          "resource optimization",
+          "resource optimizations",
+          "optimize",
+          "openshift optimize",
+          "openshift containers",
+          "optimizable containers",
+          "containers",
+          "performance optimization",
+          "performance optimizations",
+          "cost optimization",
+          "cost optimizations"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "OPENSHIFT.costManagement.openshift",
+        "title": "OpenShift - Cost Management",
+        "description": "Manage your OpenShift Container Platform integration.",
+        "href": "/openshift/cost-management/ocp",
+        "alt_title": [
+          "openshift cost",
+          "cost of openshift",
+          "cost openshift"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "OPENSHIFT.costManagement.amazonWebServices",
+        "title": "Amazon Web Services - Cost Management",
+        "description": "Manage your Amazon Web Services (AWS) integrations.",
+        "href": "/openshift/cost-management/aws",
+        "alt_title": [
+          "aws",
+          "amazon",
+          "amazon cost",
+          "cost amazon",
+          "amazon web services",
+          "cost of aws",
+          "aws cost",
+          "cost aws",
+          "amazon web services cost",
+          "cost amazon web services",
+          "cost of amazon web services"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "OPENSHIFT.costManagement.googleCloudPlatform",
+        "title": "Google Cloud Platform - Cost Management",
+        "description": "Manage your Google Cloud Platform integration.",
+        "href": "/openshift/cost-management/gcp",
+        "alt_title": [
+          "google cost",
+          "cost google", 
+          "gcp", 
+          "gcp cost", 
+          "cost of gcp", 
+          "google cloud platform cost", 
+          "cost google cloud platform", 
+          "cost of google cloud platform"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "OPENSHIFT.costManagement.microsoftAzure",
+        "title": "Microsoft Azure - Cost Management",
+        "description": "Manage your Microsoft Azure integration.",
+        "href": "/openshift/cost-management/azure",
+        "alt_title": [
+          "microsoft cost",
+          "cost of microsoft",
+          "azure",
+          "microsoft azure",
+          "cost of azure",
+          "azure cost",
+          "cost azure",
+          "cost of microsoft azure",
+          "microsoft azure cost",
+          "cost micrsoft azure"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "OPENSHIFT.costManagement.oracleCloudInfrastructure",
+        "title": "Oracle Cloud Infrastructure - Cost Management",
+        "description": "Manage your Oracle Cloud Infrastructure integration.",
+        "href": "/openshift/cost-management/oci",
+        "alt_title": [
+          "oracle",
+          "oracle cost",
+          "cost of oracle",
+          "cost oracle",
+          "ori",
+          "ori cost",
+          "cost ori",
+          "cost of ori",
+          "cost of oracle cloud infrastructure",
+          "oracle cloud infrastructure cost",
+          "cost oracle cloud infrastructure"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "OPENSHIFT.costManagement.costExplorer",
+        "title": "Cost Explorer - Cost Management",
+        "description": "Visualize and interpret your costs with custom graphs.",
+        "href": "/openshift/cost-management/explorer",
+        "alt_title": [
+          "cost explorer",
+          "explorer",
+          "cost management explorer",
+          "analysis",
+          "cost analysis",
+          "analysis of my cost"
+        ]
+      },
+      {
+        "custom": true,
+        "id": "OPENSHIFT.costManagement.settings",
+        "title": "Settings - Cost Management",
+        "description": "Manage your cost models, currency, tags, and other cost management settings.",
+        "href": "/openshift/cost-management/settings",
+        "alt_title": [
+          "cost management settings",
+          "settings",
+          "cost settings",
+          "settings cost",
+          "configurations",
+          "privacy access",
+          "limiting access",
+          "cost models",
+          "currency and calculations",
+          "tags and labels",
+          "cost categories",
+          "platform projects"
         ]
       }
     ]

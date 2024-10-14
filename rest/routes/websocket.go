@@ -47,6 +47,10 @@ func HandleWsConnection(w http.ResponseWriter, r *http.Request) {
 		logrus.Errorln("Unable to parse jwt token", err)
 		return
 	}
+
+	// REMOVE this, trying to figure out why the connection is being closed
+	r.Header.Add("Connection", "upgrade")
+
 	ws, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		logrus.Errorln("Unable to upgrade WS connection", err)
@@ -56,6 +60,7 @@ func HandleWsConnection(w http.ResponseWriter, r *http.Request) {
 	client := connectionhub.Client{
 		User:         identity.UserId,
 		Organization: identity.OrgId,
+		Username:     identity.Username,
 		Roles:        []string{},
 		Conn:         &connectionhub.Connection{Send: make(chan []byte, 256), Ws: ws},
 	}

@@ -7,6 +7,96 @@
             "title": "Starter App",
             "appId": "frontend-starter-app",
             "href": "/staging/starter"
+        },
+        {
+            "id": "widget-layout",
+            "title": "Widget layour",
+            "appId": "widget-layout",
+            "href": "/staging/widget-layout"
+        },
+        {
+            "id": "global-learning-resources-page",
+            "title": "Global Learning Resources Page",
+            "appId": "global-learning-resources-page",
+            "href": "/staging/global-learning-resources-page"
+        },
+        {
+            "id": "learning-resources-creator",
+            "title": "Learning Resources Creator",
+            "appId": "learning-resources-creator",
+            "href": "/staging/learning-resources-creator",
+            "permissions": [
+                {
+                    "method": "featureFlag",
+                    "args": ["platform.learning-resources.creator", true]
+                }
+            ]
+        },
+        {
+            "title": "Cost Management MFE",
+            "expandable": true,
+            "filterable": false,
+            "id": "costManagementMfe",
+            "description": "Cost Management Microfrontend with Module Federation",
+            "routes": [
+                {
+                    "title": "ROS",
+                    "expandable": true,
+                    "routes": [
+                        {
+                            "id": "optimizationsBadge",
+                            "appId": "costManagementMfe",
+                            "title": "Optimizations badge",
+                            "href": "/staging/cost-management/ros/optimizations/badge",
+                            "icon": "OpenShiftIcon"
+                        },
+                        {
+                            "id": "optimizationsLink",
+                            "appId": "costManagementMfe",
+                            "title": "Optimizations link",
+                            "href": "/staging/cost-management/ros/optimizations/link",
+                            "icon": "OpenShiftIcon"
+                        },
+                        {
+                            "id": "optimizationsSummary",
+                            "appId": "costManagementMfe",
+                            "title": "Optimizations summary",
+                            "href": "/staging/cost-management/ros/optimizations/summary",
+                            "icon": "OpenShiftIcon"
+                        },
+                        {
+                            "id": "optimizationsTable",
+                            "appId": "costManagementMfe",
+                            "title": "Optimizations table",
+                            "href": "/staging/cost-management/ros/optimizations/table"
+                        },
+                        {
+                            "id": "optimizationsDetails",
+                            "appId": "costManagementMfe",
+                            "title": "Optimizations details",
+                            "href": "/staging/cost-management/ros/optimizations/details"
+                        },
+                        {
+                            "id": "optimizationsBreakdown",
+                            "appId": "costManagementMfe",
+                            "title": "Optimizations breakdown",
+                            "href": "/staging/cost-management/ros/optimizations/breakdown"
+                        }
+                    ]
+                },
+                {
+                    "title": "OCM",
+                    "expandable": true,
+                    "routes": [
+                        {
+                            "id": "ocmOverview",
+                            "appId": "costManagementMfe",
+                            "title": "Overview Card",
+                            "href": "/staging/cost-management/ocm/overview"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

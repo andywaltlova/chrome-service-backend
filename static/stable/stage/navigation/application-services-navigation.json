@@ -1,6 +1,6 @@
 {
   "id": "application-services",
-  "title": "Application and Data Services",
+  "title": "Application Services",
   "navItems": [
     {
         "id": "overview",
@@ -16,44 +16,6 @@
         "href": "/application-services/learning-resources"
     },
     {
-      "groupId": "application-services",
-      "title": "Application Services",
-      "icon": "cloud",
-      "navItems": [
-        {
-          "id": "apiManagement",
-          "appId": "applicationServices",
-          "title": "API Management",
-          "icon": "ServicesIcon",
-          "description": "Manage API access, policy, and traffic controls for microservice-based applications.",
-          "href": "/application-services/api-management"
-        },
-        {
-          "id": "serviceAccounts",
-          "appId": "applicationServices",
-          "title": "Service Accounts",
-          "href": "/application-services/service-accounts",
-          "icon": "ServicesIcon",
-          "description": "Authenticate and connect securely to APIs from multiple services."
-        }
-      ]
-    },
-    {
-      "groupId": "data-services",
-      "title": "Data Services",
-      "icon": "database",
-      "navItems": [
-        {
-          "id": "dataScience",
-          "appId": "applicationServices",
-          "title": "Data Science",
-          "href": "/application-services/data-science",
-          "icon": "DataScienceIcon",
-          "description": "Develop, train, and test artificial intelligence and machine learning (AI/ML) models."
-        }
-      ]
-    },
-    {
       "groupId": "trusted-content",
       "title": "Source Code Security",
       "icon": "shield",
@@ -61,7 +23,7 @@
         {
           "id": "trustedContentOverview",
           "appId": "trustedContent",
-          "title": "Trusted Content",
+          "title": "Trusted Profile Analyzer",
           "href": "/application-services/trusted-content",
           "icon": "TrustedContentIcon",
           "description": "Increase trust and integrity in source code and accelerate the application development process.",
@@ -80,64 +42,30 @@
             "remediation",
             "software composition"
           ]
-        }
-      ]
-    },
-    {
-      "title": "Advanced Cluster Security",
-      "expandable": true,
-      "id": "acs-section",
-      "description": "Securely build, deploy, and run your cloud applications using Kubernetes-native architecture.",
-      "routes": [
-        {
-          "id": "clusterOverview",
-          "appId": "acs",
-          "title": "Overview",
-          "href": "/application-services/acs/overview",
-          "icon": "ACSIcon",
-          "description": "Securely build, deploy, and run your cloud applications using Kubernetes-native architecture."
         },
         {
-          "id": "acsGettingStarted",
-          "appId": "acs",
-          "title": "Getting Started",
-          "href": "/application-services/acs/getting-started"
-        },
-        {
-          "id": "acsInstances",
-          "appId": "acs",
-          "title": "ACS Instances",
-          "href": "/application-services/acs/instances"
-        },
-        {
-          "id": "clustersDocumentation",
-          "title": "Documentation",
-          "isExternal": true,
-          "href": "https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_security_for_kubernetes"
-        }
-      ]
-    },
-    {
-      "groupId": "insights",
-      "icon": "trend-up",
-      "title": "Red Hat Insights",
-      "navItems": [
-        {
-          "title": "Subscriptions",
-          "expandable": true,
-          "routes": [
-            {
-              "id": "openshiftDataScience",
-              "appId": "subscriptions",
-              "title": "OpenShift Data Science",
-              "href": "/application-services/subscriptions/rhods"
-            },
-            {
-              "id": "advancedClusterSecurityForKubernetes",
-              "appId": "subscriptions",
-              "title": "Advanced Cluster Security",
-              "href": "/application-services/subscriptions/rhacs"
-            }
+          "id": "trustedArtifactSignerOverview",
+          "appId": "trustedArtifactSigner",
+          "title": "Trusted Artifact Signer",
+          "icon": "PlaceholderIcon",
+          "href": "/application-services/trusted-content/artifact-signer",
+          "description": "Enables cryptographic signing, verification and provenance of software.",
+          "alt_title": [
+            "software supply chain",
+            "artifact",
+            "security",
+            "risk management",
+            "oss",
+            "trusted",
+            "signer",
+            "source code",
+            "software composition",
+            "artifact signer",
+            "sigstore",
+            "cosign",
+            "rekor",
+            "transparency logs",
+            "software transparency"
           ]
         }
       ]

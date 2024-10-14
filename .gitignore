@@ -25,3 +25,9 @@ deploy/debug.yml
 # vscode
 .vscode
 .idea
+
+# Temp cache file for service.json generator
+static/**/links-storage.json
+static/**/services-generated.json
+*-services.db
+static/**/search-index.json

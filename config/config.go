@@ -5,7 +5,10 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/RedHatInsights/chrome-service-backend/rest/util"
 	"github.com/joho/godotenv"
+	"github.com/sirupsen/logrus"
+
 	clowder "github.com/redhatinsights/app-common-go/pkg/api/v1"
 )
 
@@ -21,17 +24,26 @@ type KafkaCfg struct {
 	KafkaBrokers   []string
 	KafkaTopics    []string
 	KafkaSSlConfig KafkaSSLCfg
+	BrokerConfig   clowder.BrokerConfig
 }
 
 type IntercomConfig struct {
-	fallback      string
-	acs           string
-	acs_dev       string
-	ansible       string
-	ansible_dev   string
-	openshift     string
-	openshift_dev string
-	hacCore       string
+	fallback                string
+	acs                     string
+	acs_dev                 string
+	ansible                 string
+	ansible_dev             string
+	openshift               string
+	openshift_dev           string
+	hacCore                 string
+	ansibleDashboard        string
+	ansibleDashboard_dev    string
+	automationHub           string
+	automationHub_dev       string
+	automationAnalytics     string
+	automationAnalytics_dev string
+	dbaas                   string
+	dbaas_dev               string
 }
 
 type FeatureFlagsConfig struct {
@@ -42,6 +54,14 @@ type FeatureFlagsConfig struct {
 	FullURL           string
 	// ONLY for local use, Clowder won't populate this
 	AdminToken string
+}
+
+type DebugConfig struct {
+	DebugFavoriteIds []string
+}
+
+type WidgetDashboardConfig struct {
+	TemplatesWD string
 }
 
 type ChromeServiceConfig struct {
@@ -60,6 +80,8 @@ type ChromeServiceConfig struct {
 	KafkaConfig       KafkaCfg
 	IntercomConfig    IntercomConfig
 	FeatureFlagConfig FeatureFlagsConfig
+	DebugConfig       DebugConfig
+	DashboardConfig   WidgetDashboardConfig
 }
 
 const RdsCaLocation = "/app/rdsca.cert"
@@ -82,14 +104,17 @@ func (c *ChromeServiceConfig) getCert(cfg *clowder.AppConfig) string {
 var config *ChromeServiceConfig
 
 func init() {
-	godotenv.Load()
+	err := util.LoadEnv()
+	if err != nil {
+		godotenv.Load()
+	}
 	options := &ChromeServiceConfig{}
 
-	// Log level will default to "info". Level should be one of
-	// info or debug
+	// Log level will default to "Error". Level should be one of
+	// info or debug or error
 	level, ok := os.LookupEnv("LOG_LEVEL")
 	if !ok {
-		level = "info"
+		level = logrus.ErrorLevel.String()
 	}
 	options.LogLevel = level
 
@@ -115,12 +140,15 @@ func init() {
 
 		if cfg.Kafka != nil {
 			broker := cfg.Kafka.Brokers[0]
+
+			options.KafkaConfig.BrokerConfig = broker
 			// pass all required topics names
 			for _, topic := range cfg.Kafka.Topics {
 				options.KafkaConfig.KafkaTopics = append(options.KafkaConfig.KafkaTopics, topic.Name)
 			}
 
 			options.KafkaConfig.KafkaBrokers = clowder.KafkaServers
+
 			// Kafka SSL Config
 			if broker.Authtype != nil {
 				options.KafkaConfig.KafkaSSlConfig.KafkaUsername = *broker.Sasl.Username
@@ -168,15 +196,35 @@ func init() {
 
 	// env variables from .env or pod env variables
 	options.IntercomConfig = IntercomConfig{
-		fallback:      os.Getenv("INTERCOM_DEFAULT"),
-		acs:           os.Getenv("INTERCOM_ACS"),
-		acs_dev:       os.Getenv("INTERCOM_ACS_DEV"),
-		ansible:       os.Getenv("INTERCOM_ANSIBLE"),
-		ansible_dev:   os.Getenv("INTERCOM_ANSIBLE_DEV"),
-		openshift:     os.Getenv("INTERCOM_OPENSHIFT"),
-		openshift_dev: os.Getenv("INTERCOM_OPENSHIFT_DEV"),
-		hacCore:       os.Getenv("INTERCOM_HAC_CORE"),
+		fallback:                os.Getenv("INTERCOM_DEFAULT"),
+		acs:                     os.Getenv("INTERCOM_ACS"),
+		acs_dev:                 os.Getenv("INTERCOM_ACS_DEV"),
+		ansible:                 os.Getenv("INTERCOM_ANSIBLE"),
+		ansible_dev:             os.Getenv("INTERCOM_ANSIBLE_DEV"),
+		ansibleDashboard:        os.Getenv("INTERCOM_ANSIBLE"),
+		ansibleDashboard_dev:    os.Getenv("INTERCOM_ANSIBLE_DEV"),
+		automationHub:           os.Getenv("INTERCOM_ANSIBLE"),
+		automationHub_dev:       os.Getenv("INTERCOM_ANSIBLE_DEV"),
+		automationAnalytics:     os.Getenv("INTERCOM_ANSIBLE"),
+		automationAnalytics_dev: os.Getenv("INTERCOM_ANSIBLE_DEV"),
+		openshift:               os.Getenv("INTERCOM_OPENSHIFT"),
+		openshift_dev:           os.Getenv("INTERCOM_OPENSHIFT_DEV"),
+		hacCore:                 os.Getenv("INTERCOM_HAC_CORE"),
+		dbaas:                   os.Getenv("INTERCOM_DBAAS"),
+		dbaas_dev:               os.Getenv("INTERCOM_DBAAS_DEV"),
 	}
+
+	options.DebugConfig = DebugConfig{
+		DebugFavoriteIds: []string{"", os.Getenv("DEBUG_FAVORITES_ACCOUNT_1")},
+	}
+
+	options.DashboardConfig = WidgetDashboardConfig{
+		TemplatesWD: os.Getenv("TEMPLATES_WD"),
+	}
+	if options.DashboardConfig.TemplatesWD == "" {
+		options.DashboardConfig.TemplatesWD = "/"
+	}
+
 	config = options
 }
 

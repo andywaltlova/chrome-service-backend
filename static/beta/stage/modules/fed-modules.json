@@ -18,7 +18,7 @@
     },
     "userPreferences": {
         "manifestLocation": "/apps/user-preferences/fed-mods.json",
-        "defaultDocumentTitle": "User Preferences | User Preferences",
+        "defaultDocumentTitle": "Notification Preferences | User Preferences",
         "isFedramp": true,
         "modules": [
             {
@@ -93,8 +93,32 @@
                         "props": {
                             "bundle": "subscriptions"
                         }
+                    },
+                    {
+                        "pathname": "/application-services/learning-resources",
+                        "props": {
+                            "bundle": "application-services"
+                        }
                     }
                 ]
+            },
+            {
+                "id": "learningResourcesGlobal",
+                "module": "./GlobalLearningResourcesPage",
+                "routes": [
+                    {
+                        "pathname": "/staging/global-learning-resources-page"
+                    }
+                ]
+            },
+            {
+               "id": "learningResourcesCreator",
+               "module": "./Creator",
+               "routes": [
+                   {
+                       "pathname": "/staging/learning-resources-creator"
+                   }
+               ]
             }
         ]
     },
@@ -102,6 +126,12 @@
         "manifestLocation": "/apps/rbac/fed-mods.json",
         "isFedramp": true,
         "defaultDocumentTitle": "User Access | Identity & Access Management",
+        "config": {
+          "ssoScopes": [
+              "api.console",
+              "api.iam.service_accounts"
+          ]
+        },
         "modules": [
             {
                 "id": "my-user-access",
@@ -130,6 +160,9 @@
                 "routes": [
                     {
                         "pathname": "/iam/user-access"
+                    },
+                    {
+                        "pathname": "/iam/access-management"
                     }
                 ]
             }
@@ -190,7 +223,7 @@
                         "pathname": "/settings"
                     },
                     {
-                        "pathname": "/settings/sources"
+                        "pathname": "/settings/integrations"
                     }
                 ]
             }
@@ -206,15 +239,9 @@
                 "routes": [
                     {
                         "pathname": "/settings/notifications"
-                    }
-                ]
-            },
-            {
-                "id": "integrations",
-                "module": "./RootApp",
-                "routes": [
+                    },
                     {
-                        "pathname": "/settings/integrations"
+                        "pathname": "/settings/integrations/splunk-setup"
                     }
                 ]
             }
@@ -284,6 +311,20 @@
             }
         ]
     },
+    "costManagementMfe": {
+        "manifestLocation": "/apps/cost-management-mfe/fed-mods.json",
+        "modules": [
+            {
+                "id": "cost-management-mfe",
+                "module": "./RootApp",
+                "routes": [
+                    {
+                        "pathname": "/staging/cost-management"
+                    }
+                ]
+            }
+        ]
+    },
     "dashboard": {
         "manifestLocation": "/apps/dashboard/fed-mods.json",
         "isFedramp": true,
@@ -344,24 +385,6 @@
                 "routes": [
                     {
                         "pathname": "/openshift/insights/vulnerability"
-                    }
-                ]
-            }
-        ]
-    },
-    "drift": {
-        "manifestLocation": "/apps/drift/fed-mods.json",
-        "modules": [
-            {
-                "id": "drift",
-                "module": "./RootApp",
-                "routes": [
-                    {
-                        "pathname": "/insights/drift",
-                        "isFedramp": true
-                    },
-                    {
-                        "pathname": "/ansible/drift"
                     }
                 ]
             }
@@ -479,6 +502,18 @@
                     {
                         "pathname": "/openshift/subscriptions"
                     }
+                ]
+            }
+        ]
+    },
+    "activationKeys": {
+        "manifestLocation": "/apps/activation-keys/fed-mods.json",
+        "modules": [
+            {
+                "id": "activation-keys",
+                "module": "./RootApp",
+                "routes": [
+                    {"pathname": "/insights/connector/activation-keys"}
                 ]
             }
         ]
@@ -777,7 +812,7 @@
         "manifestLocation": "/apps/hac-core/fed-mods.json",
         "config": {
             "ssoScopes": [
-               "profile_level.name_and_dev_terms" 
+               "profile_level.name_and_dev_terms"
             ]
           },
         "modules": [
@@ -839,6 +874,9 @@
     },
     "imageBuilder": {
         "manifestLocation": "/apps/image-builder/fed-mods.json",
+        "analytics": {
+            "APIKey": "TwoYxKFzxr4fHN171gmcNoLnxXdzF8b6"
+        },
         "modules": [
             {
                 "id": "image-builder",
@@ -896,11 +934,17 @@
     },
     "dbaas": {
         "manifestLocation": "/apps/dbaas/fed-mods.json",
+        "analytics": {
+            "APIKey": "jIaaFvH6oCngTdldm62acuiLimEoMWZz"
+        },
         "modules": [
             {
                 "id": "dbaas",
                 "module": "./RootApp",
                 "routes": [
+                    {
+                        "pathname": "/application-services/trusted-content"
+                    },
                     {
                         "pathname": "/application-services/databases"
                     }
@@ -944,7 +988,7 @@
                 "module": "./RootApp",
                 "routes": [
                     {
-                        "pathname": "/application-services/acs"
+                        "pathname": "/openshift/acs"
                     }
                 ]
             }
@@ -1025,9 +1069,6 @@
                 "routes": [
                     {
                         "pathname": "/insights/content"
-                    },
-                    {
-                        "pathname": "/settings/content"
                     }
                 ]
             }
@@ -1035,7 +1076,7 @@
     },
     "idmsvc": {
         "manifestLocation": "/apps/idmsvc/fed-mods.json",
-        "defaultDocumentTitle": "Directory & Domain Services",
+        "defaultDocumentTitle": "Directory and Domain Services",
         "modules": [
             {
                 "id": "idmsvc",
@@ -1048,20 +1089,42 @@
             }
         ]
     },
-    "seatsAdminUi": {
-        "manifestLocation": "/apps/seats-admin-ui/fed-mods.json",
+    "ansibleWisdomAdminDashboard": {
+        "manifestLocation": "/apps/ansible-wisdom-admin-dashboard/fed-mods.json",
         "config": {
             "ssoScopes": [
                 "api.iam.access"
             ]
         },
+        "analytics": {
+            "APIKey": "jAy40v7EiCBWia4VkC2Y95qn8p3wdhl9"
+        },
         "modules": [
             {
-                "id": "seats-admin",
+                "id": "ansible-wisdom-admin-dashboard",
                 "module": "./RootApp",
                 "routes": [
                     {
-                        "pathname": "/ansible/seats-administration"
+                        "pathname": "/ansible/lightspeed-admin-dashboard"
+                    }
+                ]
+            }
+        ]
+    },
+    "ansibleSaasAdminConsole": {
+        "manifestLocation": "/apps/ansible-saas-admin-console/fed-mods.json",
+        "config": {
+          "ssoScopes": [
+                "api.iam.access"
+            ]
+        },
+        "modules": [
+            {
+                "id": "aaams-instances",
+                "module": "./RootApp",
+                "routes": [
+                    {
+                        "pathname": "/ansible/service/"
                     }
                 ]
             }
@@ -1069,6 +1132,11 @@
     },
     "serviceAccounts": {
       "manifestLocation": "/apps/service-accounts/fed-mods.json",
+      "config": {
+        "ssoScopes": [
+          "api.iam.service_accounts"
+        ]
+      },
       "modules": [
           {
               "id": "service-accounts",
@@ -1094,5 +1162,27 @@
                 ]
             }
         ]
+    },
+    "virtualAssistant": {
+        "manifestLocation": "/apps/virtual-assistant/fed-mods.json",
+        "modules": []
+    },
+    "widgetLayout": {
+        "manifestLocation": "/apps/widget-layout/fed-mods.json",
+        "modules": [
+          {
+              "id": "widgetLayout",
+              "module": "./RootApp",
+              "routes": [
+                  {
+                      "pathname": "/staging/widget-layout"
+                  }
+              ]
+          }
+        ]
+    },
+    "runtimes": {
+        "manifestLocation": "/apps/runtimes/fed-mods.json",
+        "modules": []
     }
 }

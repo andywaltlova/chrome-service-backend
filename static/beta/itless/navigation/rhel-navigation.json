@@ -25,6 +25,46 @@
           "icon": "InsightsIcon",
           "product": "Red Hat Insights",
           "subtitle": "Red Hat Insights for RHEL"
+        },
+        {
+          "id": "groups",
+          "appId": "inventory",
+          "title": "Groups",
+          "href": "/insights/inventory/groups",
+          "product": "Red Hat Insights",
+          "description": "Group your Red Hat Enterprise Linux systems for more granular User Access.",
+          "alt_title": [
+            "group",
+            "groups",
+            "Group",
+            "Groups"
+          ],
+          "permissions": [
+                {
+                  "method": "featureFlag",
+                  "args": ["platform.rbac.groups-to-workspaces-rename", false]
+                }
+              ]
+        },
+        {
+          "id": "workspaces",
+          "appId": "inventory",
+          "title": "Workspaces",
+          "href": "/insights/inventory/workspaces",
+          "product": "Red Hat Insights",
+          "description": "Group your Red Hat Enterprise Linux systems for more granular User Access.",
+          "alt_title": [
+            "workspace",
+            "workspaces",
+            "Workspace",
+            "Workspaces"
+          ],
+          "permissions": [
+                {
+                  "method": "featureFlag",
+                  "args": ["platform.rbac.groups-to-workspaces-rename", true]
+                }
+              ]
         }
       ]
     },
@@ -43,6 +83,7 @@
           "description": "View applicable advisories and updates for your Red Hat Enterprise Linux systems.",
           "alt_title": [
             "Errata",
+            "errata",
             "patch",
             "updates",
             "insights"
@@ -55,41 +96,29 @@
           "href": "/insights/patch/packages",
           "icon": "InsightsIcon",
           "product": "Red Hat Insights",
-          "subtitle": "Red Hat Insights for RHEL"
-        },
-        {
-          "id": "repositories",
-          "appId": "contentSources",
-          "title": "Repositories",
-          "href": "/insights/content",
-          "icon": "SubscriptionsIcon",
-          "product": "Red Hat Insights",
           "subtitle": "Red Hat Insights for RHEL",
+          "description": "Review package applicability on your Red Hat Enterprise Linux systems.",
           "alt_title": [
-            "Content",
-            "custom content",
-            "my content",
-            "my repos",
-            "repos",
-            "repo",
-            "repositories", 
-            "repository",
+            "Packages",
+            "updates",
             "insights",
-            "repository sets", 
-            "popular",
-            "Red hat repositories",
-            "Snapshots",
-            "compare",
-            "custom content",
-            "Red hat repositories",
-            "popular",
-            "nvidia",
-            "epel",
-            "add repositories",
-            "introspect",
-            "content",
+            "repositories",
+            "rpm",
             "dnf",
-            "yum"
+            "yum",
+            "errata",
+            "Errata",
+            "patch",
+            "advisories",
+            "patching",
+            "templates",
+            "content management",
+            "content view",
+            "patch cycle",
+            "satellite",
+            "RHSA",
+            "RHBA",
+            "RHEA"
           ]
         },
         {
@@ -101,7 +130,20 @@
               "appId": "patch",
               "title": "Systems",
               "href": "/insights/patch/systems",
-              "product": "Red Hat Insights"
+              "product": "Red Hat Insights",
+              "description": "View applicable advisories and updates for your Red Hat Enterprise Linux systems.",
+              "alt_title": [
+                "Patch",
+                "content",
+                "advisories",
+                "insights",
+                "Rhel",
+                "patch",
+                "updates",
+                "update",
+                "systems",
+                "upgrade"
+              ]
             },
             {
               "id": "patchTemplates",
@@ -170,33 +212,27 @@
           ]
         },
         {
-          "title": "Drift",
-          "expandable": true,
-          "routes": [
-            {
-              "id": "driftComparison",
-              "appId": "drift",
-              "title": "Comparison",
-              "href": "/insights/drift/",
-              "product": "Red Hat Insights"
-            },
-            {
-              "id": "driftBaselines",
-              "appId": "drift",
-              "title": "Baselines",
-              "href": "/insights/drift/baselines",
-              "product": "Red Hat Insights"
-            }
-          ]
-        },
-        {
           "id": "policies",
           "appId": "policies",
           "title": "Policies",
-          "href": "/insights/policies/policies/list",
+          "href": "/insights/policies",
           "icon": "InsightsIcon",
           "subtitle": "Red Hat Insights for RHEL",
-          "description": "Monitor your RHEL hosts against set parameters to detect deviation or misalignment."
+          "description": "Monitor your Red Hat Enterprise Linux inventory systems against set parameters to detect deviation or misalignment.",
+          "alt_title":[
+            "policies",
+            "facts",
+            "conditions",
+            "trigger", "notifications",
+            "alerts",
+            "insights",
+            "notify",
+            "integration",
+            "conditions",
+            "alerts",
+            "events",
+            "raise alerts on system configuration changes"
+          ]
         }
       ]
     },
@@ -235,7 +271,7 @@
             }
           ],
           "alt_title": [
-            "CVEs", 
+            "CVEs",
             "CVE",
             "Security",
             "Vulnerability",
@@ -259,8 +295,9 @@
             "critical",
             "security rule",
             "errata",
+            "Errata",
             "affected but not vulnerable",
-            "severity", 
+            "severity",
             "CVE-"
           ]
         },
@@ -276,8 +313,15 @@
               "icon": "InsightsIcon",
               "product": "Red Hat Insights",
               "description": "Evaluate your Red Hat Enterprise systems’ compliance with security or regulatory standards.",
+              "alt_title": ["rules", "rule"]
+            },
+            {
+              "id": "scapPolicies",
+              "appId": "compliance",
+              "title": "SCAP Policies",
+              "href": "/insights/compliance/scappolicies",
+              "product": "Red Hat Insights",
               "alt_title": [
-                "Compliance",
                 "security",
                 "policies",
                 "SCAP",
@@ -291,19 +335,11 @@
                 "DSS",
                 "CSI",
                 "C2S",
-                "rules",
                 "DISA STIG",
                 "PCI-DSS",
                 "NIST",
                 "OSPP"
               ]
-            },
-            {
-              "id": "scapPolicies",
-              "appId": "compliance",
-              "title": "SCAP Policies",
-              "href": "/insights/compliance/scappolicies",
-              "product": "Red Hat Insights"
             },
             {
               "id": "complianceSystems",
@@ -393,15 +429,6 @@
             "Ansible",
             "patch"
           ]
-        },
-        {
-          "id": "tasks",
-          "appId": "tasks",
-          "title": "Tasks",
-          "href": "/insights/tasks",
-          "icon": "InsightsIcon",
-          "product": "Red Hat Insights",
-          "subtitle": "Red Hat Insights for RHEL"
         }
       ]
     }

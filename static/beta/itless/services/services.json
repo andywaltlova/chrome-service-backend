@@ -4,10 +4,14 @@
     "icon": "UsersIcon",
     "title": "Identity and Access Management",
     "description": "Ensure that the right users have the appropriate access to technology resources.",
-    "links": [
-      "iam.rbac",
-      "iam.users"
-    ]
+    "links": [{
+      "isGroup": true,
+      "title": "IAM",
+      "links": [
+        "iam.users",
+        "iam.groups"
+      ]
+    }]
   },
   {
     "id": "inventories",
@@ -15,8 +19,22 @@
     "title": "Inventories",
     "description": "View OpenShift clusters, Edge systems, RHEL hosts, and your organization's subscriptions.",
     "links": [
-      "rhel.subscriptionsInventory",
-      "rhel.inventory"
+      {
+        "isGroup": true,
+        "title": "Red Hat Enterprise Linux",
+        "links": [
+          "rhel.inventory",
+          "rhel.groups",
+          "rhel.workspaces"
+        ]
+      },
+      {
+        "isGroup": true,
+        "title": "OpenShift",
+        "links": [
+          "openshift.clusters"
+        ]
+      }
     ]
   },
   {
@@ -26,16 +44,40 @@
     "description": "Monitor, troubleshoot, and improve application performance.",
     "links": [
       {
-        "id": "rhel",
         "isGroup": true,
-        "title": "RHEL",
+        "title": "Red Hat Enterprise Linux",
         "links": [
-          "rhel.recommendations",
           "rhel.advisories",
-          "rhel.comparision",
-          "rhel.policies",
-          "rhel.remediations",
-          "rhel.resourceOptimization"
+          "rhel.patchSystems",
+          {
+            "href": "/insights/advisor/recommendations",
+            "title": "Advisor",
+            "icon": "InsightsIcon",
+            "subtitle": "Red Hat Insights for RHEL",
+            "description": "See targeted recommendations to optimize your Red Hat Enterprise Linux systems' availability, performance, and security.",
+            "alt_title": [
+              "advisor",
+              "Rules",
+              "rules",
+              "rule",
+              "Rule",
+              "insights",
+              "security",
+              "stability",
+              "performance",
+              "incidents",
+              "recommendations",
+              "configuration",
+              "pathways",
+              "critical",
+              "upgrade",
+              "upgrade risk",
+              "incident",
+              "recommendation",
+              "pathway"
+            ]
+          },
+          "rhel.policies"
         ]
       }
     ]
@@ -48,27 +90,123 @@
     "links": [
       {
         "isGroup": true,
-        "title": "RHEL",
+        "title": "Red Hat Enterprise Linux",
         "links": [
-          "rhel.recommendations",
           "rhel.advisories",
-          "rhel.complianceReports",
-          "edge.groups",
-          "rhel.signatures",
-          "rhel.remediations",
-          "rhel.cves"
+          {
+            "href": "/insights/advisor/recommendations",
+            "title": "Advisor",
+            "icon": "InsightsIcon",
+            "subtitle": "Red Hat Insights for RHEL",
+            "description": "See targeted recommendations to optimize your Red Hat Enterprise Linux systems' availability, performance, and security.",
+            "alt_title": [
+              "advisor",
+              "Rules",
+              "rules",
+              "rule",
+              "Rule",
+              "insights",
+              "security",
+              "stability",
+              "performance",
+              "incidents",
+              "recommendations",
+              "configuration",
+              "pathways",
+              "critical",
+              "upgrade",
+              "upgrade risk",
+              "incident",
+              "recommendation",
+              "pathway"
+            ]
+          },
+          {
+            "href": "/insights/vulnerability/cves",
+            "icon": "InsightsIcon",
+            "title": "Vulnerability",
+            "subtitle": "Red Hat Insights for RHEL",
+            "description": "Identify and prioritize security vulnerabilities within your Red Hat Enterprise Linux systems based on severity and frequency."
+          },
+          {
+            "href": "/insights/compliance/reports",
+            "icon": "InsightsIcon",
+            "title": "Compliance",
+            "subtitle":"Red Hat Insights for RHEL",
+            "description": "Evaluate your Red Hat Enterprise systems’ compliance with security or regulatory standards.",
+            "alt_title": [
+              "security",
+              "policies",
+              "SCAP",
+              "policy",
+              "insights",
+              "regulatory",
+              "regulations",
+              "OpenSCAP",
+              "PCI",
+              "HIPAA",
+              "DSS",
+              "CSI",
+              "C2S",
+              "rules",
+              "DISA STIG",
+              "PCI-DSS",
+              "NIST",
+              "OSPP"
+            ]
+          },
+          {
+            "href": "/insights/malware/signatures",
+            "title": "Malware",
+            "icon": "InsightsIcon",
+            "subtitle": "Red Hat Insights for RHEL",
+            "description": "Identify potential malware on your Red Hat Enterprise Linux systems."
+          },
+          "rhel.remediations"
         ]
       }
     ]
   },
   {
-    "id": "spendManagement",
+    "id": "subscriptions",
     "icon": "CreditCardIcon",
-    "title": "Spend Management",
-    "description": "Control costs and monitor committed spend.",
+    "title": "Subscriptions and Spend",
+    "description": "Subscription Services empower buying decisions. SaMS provides software usage reporting that is designed to make your subscription choices data-driven.",
     "links": [
-      "rhel.subscriptionsInventory",
-      "rhel.resourceOptimization"
+      {
+        "isGroup": true,
+        "title": "Red Hat Enterprise Linux",
+        "links": [
+          {
+            "title": "Subscriptions",
+            "href": "/insights/subscriptions/rhel",
+            "icon": "OpenShiftIcon",
+            "description": "Monitor your Red Hat Enterprise Linux usage for both Annual and On-Demand subscriptions."
+          },
+          {
+            "title": "Resource Optimization",
+            "filterable": false,
+            "href": "/insights/ros",
+            "icon": "OpenShiftIcon",
+            "description": "Optimize your public cloud-based Red Hat Enterprise Linux systems based on CPU, memory, and disk input/output performance."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "systemConfiguration",
+    "icon": "CogIcon",
+    "title": "System Configuration",
+    "description": "Connect your RHEL systems to Hybrid Cloud Console services.",
+    "links": [
+      {
+        "isGroup": true,
+        "title": "Console Settings",
+        "links": [
+          "settings.notifications"
+        ]
+      }
     ]
   }
 ]

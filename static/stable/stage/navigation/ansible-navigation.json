@@ -108,22 +108,44 @@
             ]
         },
         {
-            "title": "Ansible Lightspeed with IBM watsonx Code Assistant",
+            "title": "Ansible Lightspeed",
             "expandable": true,
             "routes": [
                 {
-                    "id": "seatsAdminUi",
-                    "appId": "ansibleSeatsAdmin",
-                    "description": "Assign Ansible Lightspeed with IBM watsonx Code Assistant seats to users within your organization.",
-                    "title": "Seat Management",
-                    "filterable": false,
+                    "id": "ansibleWisdomAdminDashboard",
+                    "appId": "ansibleWisdomAdminDashboard",
+                    "description": "Ansible Lightspeed administration dashboard.",
+                    "title": "Admin Dashboard",
+                    "icon": "AnsibleIcon",
                     "permissions": [
                         {
-                        "method": "withEmail",
-                        "args": ["@redhat.com", "@sbb.ch"]
+                            "method": "loosePermissions",
+                            "args": [
+                                [
+                                    "ansible-wisdom-admin-dashboard:chart-recommendations:read",
+                                    "ansible-wisdom-admin-dashboard:chart-user-sentiment:read",
+                                    "ansible-wisdom-admin-dashboard:chart-module-usage:read",
+                                    "ansible-wisdom-admin-dashboard:chart-active-users:read"
+                                ]
+                            ]
                         }
                     ],
-                    "href": "/ansible/seats-administration"
+                    "href": "/ansible/lightspeed-admin-dashboard"
+                }
+            ]
+        },
+        {
+            "title": "Ansible Service on AWS",
+            "expandable": true,
+            "routes": [
+                {
+                    "id": "ansibleSaasAdminConsole",
+                    "appId": "ansibleSaasAdminConsole",
+                    "description": "Ansible as a managed service instances",
+                    "title": "Instances",
+                    "icon": "AnsibleIcon",
+                    "product": "Ansible as a Service",
+                    "href": "/ansible/service/instances"
                 }
             ]
         },
@@ -146,7 +168,7 @@
                     "href": "/ansible/inventory",
                     "icon": "AnsibleIcon",
                     "product": "Red Hat Insights",
-                    "description": "Get recommendations to prevent and resolve potential issues on your Ansible-managed ecosystem."
+                    "description": "View details about your Ansible Automation Platform systems."
                 },
                 {
                     "title": "Advisor",
@@ -195,27 +217,6 @@
                     ]
                 },
                 {
-                    "title": "Drift",
-                    "expandable": true,
-                    "routes": [
-                        {
-                            "id": "comparision",
-                            "appId": "drift",
-                            "title": "Comparison",
-                            "href": "/ansible/drift/",
-                            "product": "Red Hat Insights",
-                            "description": "Compare systems in your Ansible inventory to one another or against a set baseline."
-                        },
-                        {
-                            "id": "baselines",
-                            "appId": "drift",
-                            "title": "Baselines",
-                            "href": "/ansible/drift/baselines",
-                            "product": "Red Hat Insights"
-                        }
-                    ]
-                },
-                {
                     "id": "policies",
                     "appId": "policies",
                     "title": "Policies",
@@ -243,7 +244,8 @@
             "title": "Register Systems",
             "filterable": false,
             "href": "/ansible/registration",
-            "product": "Red Hat Insights"
+            "product": "Red Hat Insights",
+            "description": "Register your Ansible Automation Platform systems with the Red Hat Insights Client to view them on the Red Hat Hybrid Cloud Console."
         },
         {
             "id": "remediations",
@@ -260,7 +262,8 @@
             "title": "Tasks",
             "href": "/ansible/tasks",
             "icon": "AnsibleIcon",
-            "product": "Red Hat Insights"
+            "product": "Red Hat Insights",
+            "description": "Perform Red Hat-recommended analysis for your Ansible Automation Platform, like upgrade and conversion readiness."
         }
     ]
 }

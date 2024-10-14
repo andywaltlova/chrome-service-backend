@@ -1,18 +1,12 @@
 {
   "id": "hac",
-  "title": "Trusted Application Pipeline",
+  "title": "Konflux",
   "navItems": [
       {
         "id": "flatNav",
         "appId": "hacCore",
         "title": "Flat nav",
         "dynamicNav": "hacCore"
-      },
-      {
-        "id": "learningResources",
-        "appId": "applicationServices",
-        "title": "Learning Resources",
-        "href": "/hac/learning-resources"
       }
   ]
 }
